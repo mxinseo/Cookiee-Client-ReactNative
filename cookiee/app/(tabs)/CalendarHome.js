@@ -191,9 +191,11 @@ function Body(props) {
         date: date.date,
       };
       let daykey = JSON.stringify(data);
-      console.log("daykey: " + daykey);
       router.push({
         pathname: `day/${daykey}`,
+        params: {
+          deviceID: deviceID,
+        },
       });
     }
   };

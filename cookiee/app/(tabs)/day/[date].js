@@ -8,7 +8,12 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
-import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
+import {
+  useLocalSearchParams,
+  useRouter,
+  useFocusEffect,
+  useGlobalSearchParams,
+} from "expo-router";
 
 import EventBox from "../../../components/EventBox";
 
@@ -24,9 +29,10 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const BottomModalContnet = () => {
   const router = useRouter();
-  const [userId, setUserId] = useState(32);
 
   const { date } = useLocalSearchParams();
+  const { deviceID } = useLocalSearchParams();
+
   const selectedDate = JSON.parse(date);
 
   const [selectedThumbnailUrl, setSelectedThumbnailUrl] = useState(null);
@@ -40,11 +46,11 @@ const BottomModalContnet = () => {
     try {
       if (hasThumb === false) {
         console.log("등록 api");
-        status = await createThumb(userId, selectedDate, imageData);
+        status = await createThumb(deviceID, selectedDate, imageData);
         console.log(status);
       } else {
         console.log("수정 api", thumbnailId);
-        status = await updateThumb(userId, thumbnailId, imageData);
+        status = await updateThumb(deviceID, thumbnailId, imageData);
         console.log(status);
       }
     } catch (error) {
@@ -64,7 +70,7 @@ const BottomModalContnet = () => {
         {
           text: "삭제",
           onPress: async () => {
-            const status = await deleteThumb(userId, thumbnailId);
+            const status = await deleteThumb(deviceID, thumbnailId);
             if (status == true) {
               setSelectedThumbnailUrl(null);
             }
@@ -131,7 +137,7 @@ const BottomModalContnet = () => {
   async function handelGetThumb() {
     console.log("handelGetThumb 실행");
     try {
-      const result = await getThumb(userId);
+      const result = await getThumb(deviceID);
 
       // console.log(result);
 
@@ -163,7 +169,7 @@ const BottomModalContnet = () => {
     console.log("handelGetEventList 실행");
     try {
       const eventList = await getEventList(
-        userId,
+        deviceID,
         selectedDate.year,
         selectedDate.month,
         selectedDate.date
