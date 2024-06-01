@@ -16,7 +16,12 @@ export default function DeviceRegistration() {
   useEffect(() => {
     if (deviceID) {
       console.log("deviceID : " + deviceID);
-      router.push("CalendarHome");
+      router.push({
+        pathname: "CalendarHome",
+        params: {
+          deviceID: deviceID,
+        },
+      });
     }
   }, [deviceID]);
 
