@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
