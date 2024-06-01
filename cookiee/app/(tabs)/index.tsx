@@ -1,16 +1,11 @@
-import { StyleSheet, SafeAreaView, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import CalendarHome from "@/components/CalendarHome";
+import Login from "./DeviceRegistration";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      {/* <View style={{ ...styles.titleContainer, justifyContent: "center" }}>
-        <ThemedText type="title">Cookiee</ThemedText>
-      </View> */}
-      <CalendarHome />
+      <Login />
     </View>
   );
 }
