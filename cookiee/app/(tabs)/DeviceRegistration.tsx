@@ -17,7 +17,7 @@ export default function DeviceRegistration() {
       <View style={styles.introContainer}>
         <Image
           style={styles.image}
-          // source={require("../../assets/cookie.png")}
+          source={require("../../assets/images/cookie.png")}
         />
         <Text style={styles.title_text}>Cookiee</Text>
         <Text style={styles.content_text}>오늘 하루를 사진으로 기록해</Text>
