@@ -26,10 +26,6 @@ export default function CalendarHome() {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
 
-  useEffect(() => {
-    console.log("deviceID from params:", deviceID); // Debugging log
-  }, [deviceID]);
-
   const DATE = new Date();
   const YEAR = DATE.getFullYear();
   const MONTH = DATE.getMonth() + 1;

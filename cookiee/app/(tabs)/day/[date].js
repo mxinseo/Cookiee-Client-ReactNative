@@ -8,12 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  useLocalSearchParams,
-  useRouter,
-  useFocusEffect,
-  useGlobalSearchParams,
-} from "expo-router";
+import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 
 import EventBox from "../../../components/EventBox";
 
@@ -135,11 +130,8 @@ const BottomModalContnet = () => {
     );
 
   async function handelGetThumb() {
-    console.log("handelGetThumb 실행");
     try {
       const result = await getThumb(deviceID);
-
-      // console.log(result);
 
       if (result != null) {
         const thumbnail = result.find(
@@ -166,7 +158,6 @@ const BottomModalContnet = () => {
   }
 
   async function handelGetEventList() {
-    console.log("handelGetEventList 실행");
     try {
       const eventList = await getEventList(
         deviceID,
@@ -177,7 +168,6 @@ const BottomModalContnet = () => {
 
       if (eventList != null) {
         setEventList(eventList);
-        // console.log("eventList: ", await eventList);
       }
     } catch (error) {
       console.log(error);

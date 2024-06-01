@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const getThumb = async (deviceID) => {
   try {
-    console.log(deviceID);
     const response = await axios.get(
       `https://cookiee.site/api/v1/thumbnails/${deviceID}`
     );
