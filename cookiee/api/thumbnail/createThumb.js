@@ -1,4 +1,4 @@
-export const createThumb = async (userId, selectedDate, asset) => {
+export const createThumb = async (deviceID, selectedDate, asset) => {
   const formData = new FormData();
 
   const uploadedImageData = {
@@ -12,23 +12,15 @@ export const createThumb = async (userId, selectedDate, asset) => {
   formData.append("eventYear", selectedDate.year);
   formData.append("eventMonth", selectedDate.month);
   formData.append("eventDate", selectedDate.date);
-  // console.log(formData.getAll("thumbnail"));
-  // console.log(formData.getAll("eventYear"));
-  // console.log(formData.getAll("eventMonth"));
-  // console.log(formData.getAll("eventDate"));
-
-  userId = 34;
 
   try {
-    const res = await fetch(`https://cookiee.site/thumbnail/${userId}`, {
-      method: "POST",
-      body: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-      },
-    });
+    const res = await fetch(
+      `https://cookiee.site/api/v1/thumbnails/${deviceID}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     console.log(res.status);
     if (res.status == 200) {

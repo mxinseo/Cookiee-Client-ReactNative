@@ -13,17 +13,18 @@ import { useEffect, useState, useCallback } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
+import {
+  router,
+  useRouter,
+  useLocalSearchParams,
+  useFocusEffect,
+} from "expo-router";
 
 import { getThumb } from "../../api/thumbnail/getThumb";
 
 export default function CalendarHome() {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
-
-  useEffect(() => {
-    console.log("deviceID from params:", deviceID); // Debugging log
-  }, [deviceID]);
 
   const DATE = new Date();
   const YEAR = DATE.getFullYear();
@@ -186,10 +187,12 @@ function Body(props) {
         date: date.date,
       };
       let daykey = JSON.stringify(data);
-      // console.log("daykey: " + daykey);
-      // router.push({
-      //   pathname: `day/${daykey}`,
-      // });
+      router.push({
+        pathname: `day/${daykey}`,
+        params: {
+          deviceID: deviceID,
+        },
+      });
     }
   };
 
