@@ -13,7 +13,12 @@ import { useEffect, useState, useCallback } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
+import {
+  router,
+  useRouter,
+  useLocalSearchParams,
+  useFocusEffect,
+} from "expo-router";
 
 import { getThumb } from "../../api/thumbnail/getThumb";
 
@@ -186,10 +191,10 @@ function Body(props) {
         date: date.date,
       };
       let daykey = JSON.stringify(data);
-      // console.log("daykey: " + daykey);
-      // router.push({
-      //   pathname: `day/${daykey}`,
-      // });
+      console.log("daykey: " + daykey);
+      router.push({
+        pathname: `day/${daykey}`,
+      });
     }
   };
 
