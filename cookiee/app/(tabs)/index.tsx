@@ -1,17 +1,17 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import CalendarHome from "@/components/CalendarHome";
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView>
-      <ThemedView
-        style={{ ...styles.titleContainer, justifyContent: "center" }}
-      >
+    <View style={styles.container}>
+      {/* <View style={{ ...styles.titleContainer, justifyContent: "center" }}>
         <ThemedText type="title">Cookiee</ThemedText>
-      </ThemedView>
-    </SafeAreaView>
+      </View> */}
+      <CalendarHome />
+    </View>
   );
 }
 
@@ -20,5 +20,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+  },
+  container: {
+    flex: 1,
   },
 });
