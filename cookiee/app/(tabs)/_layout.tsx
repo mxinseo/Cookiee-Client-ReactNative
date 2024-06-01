@@ -21,9 +21,9 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
-        name="explore"
+        name="DeviceRegistration"
         options={{
-          title: "Explore",
+          title: "Login",
         }}
       />
     </Stack>
