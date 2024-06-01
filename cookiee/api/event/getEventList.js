@@ -1,16 +1,12 @@
 import axios from "axios";
 
-export const getEventList = async (userId, year, month, date) => {
+export const getEventList = async (deviceID, year, month, date) => {
   try {
     userId = 34;
     const response = await axios.get(
-      `https://cookiee.site/event/view/${userId}`,
+      `https://cookiee.site/api/v1/events/${deviceID}`,
       {
         params: { eventYear: year, eventMonth: month, eventDate: date },
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-        },
       }
     );
 
