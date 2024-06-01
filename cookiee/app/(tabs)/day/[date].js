@@ -196,7 +196,7 @@ const BottomModalContnet = () => {
             style={styles.imageBackground}
             source={{ uri: selectedThumbnailUrl }}
             resizeMode="cover"
-            defaultSource={require("../../../assets/adaptive-icon.png")}
+            defaultSource={require("../../../assets/images/adaptive-icon.png")}
           ></ImageBackground>
         )}
 
