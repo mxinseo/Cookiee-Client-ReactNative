@@ -26,6 +26,13 @@ export default function TabLayout() {
           title: "Login",
         }}
       />
+      <Stack.Screen
+        name="day"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }
