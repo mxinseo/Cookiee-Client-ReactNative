@@ -51,6 +51,3 @@ Cookiee- 앱으로 여러분의 하루하루를 아름답게 기록해보세요!
 | ✨경민서 | Front-end  | [mxinseo](https://github.com/mxinseo)  | jade201913@gmail.com |
 | ✨윤서희 | Front-end | [seohee0925](https://github.com/seohee0925)  | appleid21@sookmyung.ac.kr     |
 <br>
-
-
-webhook 테스트
