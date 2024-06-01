@@ -9,16 +9,21 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState, useCallback } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
 
-//   import { getThumb } from "../../api/thumbnail/getThumb";
+import { getThumb } from "../../api/thumbnail/getThumb";
 
 export default function CalendarHome() {
-  // const router = router();
+  const router = useRouter();
+  const { deviceID } = useLocalSearchParams();
+
+  useEffect(() => {
+    console.log("deviceID from params:", deviceID); // Debugging log
+  }, [deviceID]);
 
   const DATE = new Date();
   const YEAR = DATE.getFullYear();
@@ -77,6 +82,7 @@ export default function CalendarHome() {
         year={year}
         today={today}
         date={date}
+        deviceID={deviceID}
         moveToNextMonth={moveToNextMonth}
         moveToPreviousMonth={moveToPreviousMonth}
         moveToSpecificYearAndMonth={moveToSpecificYearAndMonth}
@@ -112,8 +118,6 @@ function Header(props) {
 
 //Year,Monty,date
 function Body(props) {
-  const [userId, setUserId] = useState(32);
-
   const [totalDays, setTotalDays] = useState({});
   const [pressedDate, setPressedDate] = useState({
     state: "",
@@ -121,7 +125,8 @@ function Body(props) {
     month: 0,
     date: 0,
   });
-  const { year, month, date } = props;
+  const { year, month, date, deviceID } = props;
+
   useEffect(() => {
     getTotalDays(year, month);
   }, [year, month, date]);
@@ -197,7 +202,7 @@ function Body(props) {
 
       async function get() {
         try {
-          // const result = await getThumb(userId);
+          const result = await getThumb(deviceID);
 
           if (!completed && result != null) {
             setThumbnailUris(result);

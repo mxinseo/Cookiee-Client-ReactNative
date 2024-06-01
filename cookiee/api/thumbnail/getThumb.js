@@ -1,16 +1,10 @@
 import axios from "axios";
 
-export const getThumb = async (userId) => {
+export const getThumb = async (deviceID) => {
   try {
-    userId = 34;
+    console.log(deviceID);
     const response = await axios.get(
-      `https://cookiee.site/thumbnail/view/${userId}`,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-        },
-      }
+      `https://cookiee.site/api/v1/thumbnails/${deviceID}`
     );
 
     if (response.status !== 200) {
