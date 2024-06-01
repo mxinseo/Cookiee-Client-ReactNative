@@ -1,16 +1,24 @@
 import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "expo-router";
 
 import DeviceInfo from "react-native-device-info";
 
 export default function DeviceRegistration() {
+  const router = useRouter();
   const [deviceID, setDeviceID] = useState(String);
 
   const getDeviceUUID = async () => {
     const uniqueID = await DeviceInfo.getUniqueId();
     setDeviceID(uniqueID);
-    console.log(deviceID);
   };
+
+  useEffect(() => {
+    if (deviceID) {
+      console.log("deviceID : " + deviceID);
+      router.push("CalendarHome");
+    }
+  }, [deviceID]);
 
   return (
     <View style={styles.container}>

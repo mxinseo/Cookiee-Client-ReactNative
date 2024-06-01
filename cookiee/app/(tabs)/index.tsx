@@ -1,12 +1,10 @@
 import { StyleSheet, View } from "react-native";
 
-import CalendarHome from "@/components/CalendarHome";
 import Login from "./DeviceRegistration";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      {/* <CalendarHome /> */}
       <Login />
     </View>
   );
