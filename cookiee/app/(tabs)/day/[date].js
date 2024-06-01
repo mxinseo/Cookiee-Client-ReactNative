@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 
-import EventBox from "../../components/EventBox";
+import EventBox from "../../../components/EventBox";
 
 import { createThumb } from "../../../api/thumbnail/createThumb";
 import { getThumb } from "../../../api/thumbnail/getThumb";
