@@ -193,7 +193,7 @@ const EventDetailIndex = () => {
                   }}
                 >
                   <Image
-                    defaultSource={require("../../../assets/adaptive-icon.png")}
+                    defaultSource={require("../../../assets/images/adaptive-icon.png")}
                     source={{ uri: item }}
                     style={{
                       width: "100%",
