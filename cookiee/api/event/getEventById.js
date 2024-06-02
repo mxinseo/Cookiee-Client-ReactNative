@@ -1,16 +1,9 @@
 import axios from "axios";
 
-export const getEventById = async (userId, eventId) => {
-  userId = 34;
+export const getEventById = async (deviceID, eventId) => {
   try {
     const response = await axios.get(
-      `https://cookiee.site/event/view/${userId}/${eventId}`,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-        },
-      }
+      `https://cookiee.site/api/v1/events/${deviceID}/${eventId}`
     );
 
     if (response.status !== 200) {
