@@ -33,6 +33,13 @@ export default function TabLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="event"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }
