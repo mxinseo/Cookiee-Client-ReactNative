@@ -21,21 +21,18 @@ const EventDetailIndex = () => {
   const router = useRouter();
 
   const { eventid } = useLocalSearchParams();
+  const { deviceID } = useLocalSearchParams();
 
   const [eventData, setEventData] = useState([]);
   const [eventImgData, setEventImgData] = useState([]);
 
-  const [userId, setUserId] = useState(32);
-
   async function handelGetEventById() {
-    console.log("handelGetEventById 실행");
     try {
-      const event = await getEventById(userId, eventid);
+      const event = await getEventById(deviceID, eventid);
 
       if (event != null) {
         setEventData(event);
         setEventImgData(event.eventImageUrlList);
-        console.log("event: ", await event);
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +49,7 @@ const EventDetailIndex = () => {
 
   const hadleDeleteEvent = () => {
     console.log("이벤트 삭제 api");
-    console.log(userId, eventid);
+    console.log(deviceID, eventid);
     Alert.alert(
       "이벤트 삭제하기",
       "정말로 삭제하시겠습니까?",
@@ -60,7 +57,7 @@ const EventDetailIndex = () => {
         {
           text: "삭제",
           onPress: async () => {
-            const status = await deleteEvent(userId, eventid);
+            const status = await deleteEvent(deviceID, eventid);
             console.log(status);
             router.back();
           },
@@ -88,17 +85,14 @@ const EventDetailIndex = () => {
 
   const onImgLoadStart = () => {
     setIsLoading(true);
-    console.log("로딩 시작");
     startTime = new Date().getTime();
   };
 
   const onImgLoadEnd = () => {
     setIsLoading(false);
-    console.log("로딩 끝");
     endTime = new Date().getTime();
 
     const elapsedTime = endTime - startTime;
-    // console.log("이미지 로드에 소요된 시간: " + elapsedTime + "밀리초");
   };
 
   const Indicator = () => {

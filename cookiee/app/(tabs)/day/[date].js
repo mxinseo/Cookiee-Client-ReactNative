@@ -242,6 +242,9 @@ const BottomModalContnet = () => {
                       onPress={() =>
                         router.push({
                           pathname: `event/${event.eventId}`,
+                          params: {
+                            deviceID: deviceID,
+                          },
                         })
                       }
                     >
