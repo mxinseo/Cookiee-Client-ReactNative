@@ -6,7 +6,6 @@ import {
   TextInput,
   Dimensions,
   Image,
-  ActivityIndicatorComponent,
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useCallback } from "react";
