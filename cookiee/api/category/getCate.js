@@ -1,16 +1,9 @@
 import axios from "axios";
 
-export const getCate = async (userId) => {
-  userId = 34;
+export const getCate = async (deviceID) => {
   try {
     const response = await axios.get(
-      `https://cookiee.site/category/${userId}`,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-        },
-      }
+      `https://cookiee.site/api/v1/events/${deviceID}`
     );
 
     if (response.status !== 200) {
