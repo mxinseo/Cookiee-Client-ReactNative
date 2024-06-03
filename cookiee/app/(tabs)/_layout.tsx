@@ -40,6 +40,13 @@ export default function TabLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="form"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }

@@ -265,6 +265,7 @@ const BottomModalContnet = () => {
                     year: selectedDate.year,
                     month: selectedDate.month,
                     date: selectedDate.date,
+                    deviceID: deviceID,
                   },
                 });
               }}
