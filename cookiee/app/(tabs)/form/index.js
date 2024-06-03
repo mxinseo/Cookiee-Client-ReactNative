@@ -192,14 +192,9 @@ const AddEventFormScreen = () => {
     console.log(formData.getAll("endTime"));
 
     console.log("fetch 시도");
-    fetch(`https://cookiee.site/event/${userId}`, {
+    fetch(`https://cookiee.site/api/v1/events/${deviceID}`, {
       method: "POST",
       body: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-      },
     })
       .then((res) => {
         console.log("이벤트 등록 통신 성공. LOG의 'ok'가 true인지 확인하세요.");
@@ -309,6 +304,7 @@ const AddEventFormScreen = () => {
 
             <View style={styles.timeInputContainer}>
               <TextInput
+                id="startTime"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -318,6 +314,7 @@ const AddEventFormScreen = () => {
               />
               <Text>시</Text>
               <TextInput
+                id="startMin"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -332,6 +329,7 @@ const AddEventFormScreen = () => {
             <Text style={styles.InputTitle}>종료 시간</Text>
             <View style={styles.timeInputContainer}>
               <TextInput
+                id="endTime"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -341,6 +339,7 @@ const AddEventFormScreen = () => {
               />
               <Text>시</Text>
               <TextInput
+                id="endMin"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -354,6 +353,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>장소</Text>
             <TextInput
+              id="place"
               style={styles.InputBox}
               placeholder="  장소"
               value={newEvent.place}
@@ -364,6 +364,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>내용</Text>
             <TextInput
+              id="content"
               style={styles.InputBox}
               placeholder="  내용"
               value={newEvent.what}
@@ -373,6 +374,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>함께한 사람</Text>
             <TextInput
+              id="people"
               style={styles.InputBox}
               placeholder="  사람"
               value={newEvent.people}
