@@ -309,6 +309,7 @@ const AddEventFormScreen = () => {
 
             <View style={styles.timeInputContainer}>
               <TextInput
+                id="startTime"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -318,6 +319,7 @@ const AddEventFormScreen = () => {
               />
               <Text>시</Text>
               <TextInput
+                id="startMin"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -332,6 +334,7 @@ const AddEventFormScreen = () => {
             <Text style={styles.InputTitle}>종료 시간</Text>
             <View style={styles.timeInputContainer}>
               <TextInput
+                id="endTime"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -341,6 +344,7 @@ const AddEventFormScreen = () => {
               />
               <Text>시</Text>
               <TextInput
+                id="endMin"
                 style={styles.timeInputBox}
                 onChangeText={(text) =>
                   setTimeField((prevState) => {
@@ -354,6 +358,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>장소</Text>
             <TextInput
+              id="place"
               style={styles.InputBox}
               placeholder="  장소"
               value={newEvent.place}
@@ -364,6 +369,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>내용</Text>
             <TextInput
+              id="content"
               style={styles.InputBox}
               placeholder="  내용"
               value={newEvent.what}
@@ -373,6 +379,7 @@ const AddEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>함께한 사람</Text>
             <TextInput
+              id="people"
               style={styles.InputBox}
               placeholder="  사람"
               value={newEvent.people}
