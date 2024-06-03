@@ -3,7 +3,7 @@ import axios from "axios";
 export const getCate = async (deviceID) => {
   try {
     const response = await axios.get(
-      `https://cookiee.site/api/v1/events/${deviceID}`
+      `https://cookiee.site/api/v1/categories/${deviceID}`
     );
 
     if (response.status !== 200) {

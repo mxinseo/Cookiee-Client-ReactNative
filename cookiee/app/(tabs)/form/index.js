@@ -23,7 +23,6 @@ const AddEventFormScreen = () => {
   const router = useRouter();
   const { year, month, date, deviceID } = useGlobalSearchParams();
   selectedDate = { year: year, month: month, date: date };
-  console.log(JSON.stringify(selectedDate), deviceID);
 
   const width = Dimensions.get("window").width;
 
@@ -36,28 +35,26 @@ const AddEventFormScreen = () => {
         try {
           const result = await getCate(deviceID);
           if (result != null) {
-            if (result != null) {
-              let cateNum = 0;
-              let presentCates = [];
+            let cateNum = 0;
+            let presentCates = [];
 
-              for (cateNum = 0; cateNum < result.length; cateNum++) {
-                const presentCate = {
-                  label: result[cateNum].categoryName,
-                  value: result[cateNum].categoryId,
-                  color: result[cateNum].categoryColor,
-                };
+            for (cateNum = 0; cateNum < result.length; cateNum++) {
+              const presentCate = {
+                label: result[cateNum].categoryName,
+                value: result[cateNum].categoryId,
+                color: result[cateNum].categoryColor,
+              };
 
-                const exists = items.some(
-                  (item) => item.value === presentCate.value
-                );
-                if (!exists) {
-                  console.log(presentCate);
-                  presentCates.push(presentCate);
-                }
+              const exists = items.some(
+                (item) => item.value === presentCate.value
+              );
+              if (!exists) {
+                console.log(presentCate);
+                presentCates.push(presentCate);
               }
-
-              setItems([...presentCates, ...items]);
             }
+
+            setItems([...presentCates, ...items]);
           } else {
             console.error("getCate returned undefined or null result");
           }
