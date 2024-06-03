@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useState, useCallback } from "react";
 
@@ -35,26 +36,42 @@ const AddEventFormScreen = () => {
         try {
           const result = await getCate(deviceID);
           if (result != null) {
-            let cateNum = 0;
-            let presentCates = [];
+            if (result.length > 0) {
+              let cateNum = 0;
+              let presentCates = [];
 
-            for (cateNum = 0; cateNum < result.length; cateNum++) {
-              const presentCate = {
-                label: result[cateNum].categoryName,
-                value: result[cateNum].categoryId,
-                color: result[cateNum].categoryColor,
-              };
+              for (cateNum = 0; cateNum < result.length; cateNum++) {
+                const presentCate = {
+                  label: result[cateNum].categoryName,
+                  value: result[cateNum].categoryId,
+                  color: result[cateNum].categoryColor,
+                };
 
-              const exists = items.some(
-                (item) => item.value === presentCate.value
-              );
-              if (!exists) {
-                console.log(presentCate);
-                presentCates.push(presentCate);
+                const exists = items.some(
+                  (item) => item.value === presentCate.value
+                );
+                if (!exists) {
+                  console.log(presentCate);
+                  presentCates.push(presentCate);
+                }
               }
-            }
 
-            setItems([...presentCates, ...items]);
+              setItems([...presentCates, ...items]);
+            } else {
+              Alert.alert(
+                "아직 카테고리가 하나도 없네요!",
+                "사이드바에서 카테고리를 설정해주세요.",
+                [
+                  {
+                    text: "확인",
+                    onPress: () => {
+                      router.back();
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }
           } else {
             console.error("getCate returned undefined or null result");
           }
