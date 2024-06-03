@@ -21,22 +21,20 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 const AddEventFormScreen = () => {
   const router = useRouter();
-  const { year, month, date } = useGlobalSearchParams();
-
+  const { year, month, date, deviceID } = useGlobalSearchParams();
   selectedDate = { year: year, month: month, date: date };
+  console.log(JSON.stringify(selectedDate), deviceID);
 
   const width = Dimensions.get("window").width;
 
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  const [userId, setUserId] = useState(34);
-
   useFocusEffect(
     useCallback(() => {
       async function get() {
         try {
-          // const result = await getCate(userId);
+          const result = await getCate(deviceID);
           if (result != null) {
             if (result != null) {
               let cateNum = 0;
@@ -69,7 +67,7 @@ const AddEventFormScreen = () => {
       }
 
       get();
-    }, [userId])
+    }, [deviceID])
   );
 
   const [timeField, setTimeField] = useState({
