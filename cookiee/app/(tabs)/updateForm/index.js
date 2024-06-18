@@ -14,7 +14,6 @@ import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 
 import * as ImagePicker from "expo-image-picker";
 import Carousel from "react-native-reanimated-carousel";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import getCate from "../../../api/category/getCate";
 import { MultiSelect } from "react-native-element-dropdown";
