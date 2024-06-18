@@ -47,6 +47,42 @@ export default function TabLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="sidebar"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="categoryFix"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="categoryAdd"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="categoryEdit"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="showCookiee"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="myPage"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
