@@ -7,7 +7,6 @@ import {
   Dimensions,
   Image,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import React, { useState, useCallback } from "react";
 
@@ -20,10 +19,9 @@ import getCate from "../../../api/category/getCate";
 import { MultiSelect } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-const AddEventFormScreen = () => {
+const UpdateEventFormScreen = () => {
   const router = useRouter();
-  const { year, month, date, deviceID } = useGlobalSearchParams();
-  selectedDate = { year: year, month: month, date: date };
+  const { year, month, date, deviceID, eventId } = useGlobalSearchParams();
 
   const width = Dimensions.get("window").width;
 
@@ -36,7 +34,7 @@ const AddEventFormScreen = () => {
         try {
           const result = await getCate(deviceID);
           if (result != null) {
-            if (result.length > 0) {
+            if (result != null) {
               let cateNum = 0;
               let presentCates = [];
 
@@ -57,20 +55,6 @@ const AddEventFormScreen = () => {
               }
 
               setItems([...presentCates, ...items]);
-            } else {
-              Alert.alert(
-                "아직 카테고리가 하나도 없네요!",
-                "사이드바에서 카테고리를 설정해주세요.",
-                [
-                  {
-                    text: "확인",
-                    onPress: () => {
-                      router.back();
-                    },
-                  },
-                ],
-                { cancelable: false }
-              );
             }
           } else {
             console.error("getCate returned undefined or null result");
@@ -146,9 +130,6 @@ const AddEventFormScreen = () => {
   };
 
   const [newEvent, setNewEvent] = useState({
-    year: selectedDate.year,
-    month: selectedDate.month,
-    date: selectedDate.date,
     imgUrl: [],
     cate: "",
     time: "",
@@ -169,26 +150,14 @@ const AddEventFormScreen = () => {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // 입력 필드 초기화
-    setNewEvent({
-      year: selectedDate.year,
-      month: selectedDate.month,
-      date: selectedDate.date,
-      imgUrl: [],
-      cate: "",
-      time: "",
-      place: "",
-      what: "",
-      people: "",
-    });
-
     // FormData
     formData.append("eventWhat", newEvent.what);
     formData.append("eventWhere", newEvent.place);
     formData.append("withWho", newEvent.people);
-    formData.append("eventYear", selectedDate.year);
-    formData.append("eventMonth", selectedDate.month);
-    formData.append("eventDate", selectedDate.date);
+    formData.append("eventYear", year);
+    formData.append("eventMonth", month);
+    formData.append("eventDate", date);
+
     formData.append(
       "startTime",
       timeField.startTime + ":" + timeField.startMin
@@ -203,19 +172,21 @@ const AddEventFormScreen = () => {
       formData.append(`categoryIds`, category);
     });
 
-    console.log("fetch 시도");
-    fetch(`https://cookiee.site/api/v1/events/${deviceID}`, {
-      method: "POST",
+    fetch(`https://cookiee.site/api/v1/events/${deviceID}/${eventId}`, {
+      method: "PUT",
       body: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     })
       .then((res) => {
-        console.log("이벤트 등록 통신 성공. LOG의 'ok'가 true인지 확인하세요.");
+        console.log("이벤트 수정 통신 성공. LOG의 'ok'가 true인지 확인하세요.");
         console.log(JSON.stringify(res));
         setIsSubmitting(false);
         router.back();
       })
       .catch((err) => {
-        console.log("이벤트 등록 통신 실패");
+        console.log("이벤트 수정 통신 실패");
         console.log(JSON.stringify(err.response));
       });
   };
@@ -440,7 +411,7 @@ const AddEventFormScreen = () => {
   }
 };
 
-export default AddEventFormScreen;
+export default UpdateEventFormScreen;
 
 const styles = StyleSheet.create({
   Container: {

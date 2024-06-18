@@ -140,6 +140,10 @@ const EventDetailIndex = () => {
                   router.push({
                     pathname: "updateForm",
                     params: {
+                      year: eventData.EventYear,
+                      month: eventData.EventMonth,
+                      date: eventData.EventDate,
+                      deviceID: deviceID,
                       eventId: eventid,
                     },
                   });
