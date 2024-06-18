@@ -203,11 +203,6 @@ const AddEventFormScreen = () => {
       formData.append(`categoryIds`, category);
     });
 
-    console.log("이벤트 정보 확인");
-
-    console.log(formData.getAll("startTime"));
-    console.log(formData.getAll("endTime"));
-
     console.log("fetch 시도");
     fetch(`https://cookiee.site/api/v1/events/${deviceID}`, {
       method: "POST",

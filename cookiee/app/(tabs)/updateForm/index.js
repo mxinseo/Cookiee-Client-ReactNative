@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useCallback } from "react";
 
-import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
+import { useGlobalSearchParams, useRouter, useFocusEffect } from "expo-router";
 
 import * as ImagePicker from "expo-image-picker";
 import Carousel from "react-native-reanimated-carousel";
@@ -21,20 +21,18 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 const UpdateEventFormScreen = () => {
   const router = useRouter();
-  const eventId = useLocalSearchParams();
+  const { year, month, date, deviceID, eventId } = useGlobalSearchParams();
 
   const width = Dimensions.get("window").width;
 
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  const [userId, setUserId] = useState(32);
-
   useFocusEffect(
     useCallback(() => {
       async function get() {
         try {
-          const result = await getCate(userId);
+          const result = await getCate(deviceID);
           if (result != null) {
             if (result != null) {
               let cateNum = 0;
@@ -67,55 +65,15 @@ const UpdateEventFormScreen = () => {
       }
 
       get();
-    }, [userId])
+    }, [deviceID])
   );
 
-  const [startTime, setStartTime] = useState(new Date()); // 선택 시작 날짜
-  const [endTime, setEndTime] = useState(new Date()); // 선택 종료 날짜
-
-  const [startOrEnd, setStartOrEnd] = useState("start");
-  const [visible, setVisible] = useState(false); // 모달 노출 여부
-
-  const onPressStartTime = () => {
-    // 시작 시간 클릭 시
-    setStartOrEnd("start");
-    setVisible(true); // 모달 open
-  };
-
-  const onPressEndTime = () => {
-    // 종료 시간 클릭 시
-    setStartOrEnd("end");
-    setVisible(true); // 모달 open
-  };
-
-  const onConfirm = (selected) => {
-    // 날짜 또는 시간 선택 시
-    if (startOrEnd == "start") {
-      setStartTime(selected);
-    } else {
-      setEndTime(selected);
-    }
-
-    setVisible(false); // 모달 close
-    console.log(startTime.getHours());
-    console.log(typeof startTime.getHours());
-
-    handleInputChange(
-      startTime.getHours() +
-        ":" +
-        startTime.getMinutes() +
-        " - " +
-        endTime.getHours() +
-        ":" +
-        endTime.getMinutes(),
-      "time"
-    );
-  };
-
-  const onCancel = () => {
-    // 취소 시
-    setVisible(false); // 모달 close
-  };
+  const [timeField, setTimeField] = useState({
+    startTime: 0,
+    startMin: 0,
+    endTime: 0,
+    endMin: 0,
+  });
 
   /* 이미지 업로드 구현 */
   const formData = new FormData();
@@ -171,9 +129,6 @@ const UpdateEventFormScreen = () => {
     }
   };
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-
   const [newEvent, setNewEvent] = useState({
     imgUrl: [],
     cate: "",
@@ -199,11 +154,15 @@ const UpdateEventFormScreen = () => {
     formData.append("eventWhat", newEvent.what);
     formData.append("eventWhere", newEvent.place);
     formData.append("withWho", newEvent.people);
+    formData.append("eventYear", year);
+    formData.append("eventMonth", month);
+    formData.append("eventDate", date);
+
     formData.append(
       "startTime",
-      startTime.getHours() + ":" + startTime.getMinutes()
+      timeField.startTime + ":" + timeField.startMin
     );
-    formData.append("endTime", endTime.getHours() + ":" + endTime.getMinutes());
+    formData.append("endTime", timeField.endTime + ":" + timeField.endMin);
 
     imageDataArray.forEach((imageData, index) => {
       formData.append(`images`, imageData);
@@ -213,27 +172,11 @@ const UpdateEventFormScreen = () => {
       formData.append(`categoryIds`, category);
     });
 
-    console.log("이벤트 정보 확인");
-    console.log(formData.getAll("images"));
-    console.log(formData.getAll("eventWhat"));
-    console.log(formData.getAll("eventWhere"));
-    console.log(formData.getAll("withWho"));
-    console.log(formData.getAll("categoryIds"));
-    console.log(formData.getAll("startTime"));
-    console.log(formData.getAll("endTime"));
-
-    console.log("fetch 시도");
-    console.log(
-      `https://cookiee.site/event/update/${userId}/${eventId.eventId}`
-    );
-
-    fetch(`https://cookiee.site/event/update/${userId}/${eventId.eventId}`, {
+    fetch(`https://cookiee.site/api/v1/events/${deviceID}/${eventId}`, {
       method: "PUT",
       body: formData,
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMiIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MDk1MTM4NzcsImV4cCI6MTcxMjEwNTg3N30.ZHC6ZPw6WsTfMR7at4FLkLAjNDU0vOMgfWL1lI3DsOs",
       },
     })
       .then((res) => {
@@ -341,55 +284,70 @@ const UpdateEventFormScreen = () => {
         <View style={styles.formContainer}>
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>시작 시간</Text>
-            <TouchableOpacity
-              onPress={onPressStartTime}
-              style={styles.InputBox}
-            >
-              <Text style={styles.buttonText}>
-                {"  "}
-                {startTime != null
-                  ? startTime.getHours() + " : " + startTime.getMinutes()
-                  : "시간"}
-              </Text>
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={visible}
-              mode={"time"}
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              date={startTime}
-            />
+
+            <View style={styles.timeInputContainer}>
+              <TextInput
+                id="startTime"
+                style={styles.timeInputBox}
+                onChangeText={(text) =>
+                  setTimeField((prevState) => {
+                    return { ...prevState, startTime: text };
+                  })
+                }
+              />
+              <Text>시</Text>
+              <TextInput
+                id="startMin"
+                style={styles.timeInputBox}
+                onChangeText={(text) =>
+                  setTimeField((prevState) => {
+                    return { ...prevState, startMin: text };
+                  })
+                }
+              />
+              <Text>분</Text>
+            </View>
           </View>
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>종료 시간</Text>
-            <TouchableOpacity onPress={onPressEndTime} style={styles.InputBox}>
-              <Text style={styles.buttonText}>
-                {"  "}
-                {endTime != null
-                  ? endTime.getHours() + " : " + endTime.getMinutes()
-                  : "시간"}
-              </Text>
-            </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={visible}
-              mode={"time"}
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              date={endTime}
-            />
+            <View style={styles.timeInputContainer}>
+              <TextInput
+                id="endTime"
+                style={styles.timeInputBox}
+                onChangeText={(text) =>
+                  setTimeField((prevState) => {
+                    return { ...prevState, endTime: text };
+                  })
+                }
+              />
+              <Text>시</Text>
+              <TextInput
+                id="endMin"
+                style={styles.timeInputBox}
+                onChangeText={(text) =>
+                  setTimeField((prevState) => {
+                    return { ...prevState, endMin: text };
+                  })
+                }
+              />
+              <Text>분</Text>
+            </View>
           </View>
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>장소</Text>
             <TextInput
+              id="place"
               style={styles.InputBox}
               placeholder="  장소"
               value={newEvent.place}
               onChangeText={(text) => handleInputChange(text, "place")}
+              autoCorrect={false}
             />
           </View>
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>내용</Text>
             <TextInput
+              id="content"
               style={styles.InputBox}
               placeholder="  내용"
               value={newEvent.what}
@@ -399,6 +357,7 @@ const UpdateEventFormScreen = () => {
           <View style={styles.InputContainer}>
             <Text style={styles.InputTitle}>함께한 사람</Text>
             <TextInput
+              id="people"
               style={styles.InputBox}
               placeholder="  사람"
               value={newEvent.people}
@@ -409,7 +368,6 @@ const UpdateEventFormScreen = () => {
             <Text style={styles.InputTitle}>카테고리</Text>
             <View style={styles.dropdownContainer}>
               <MultiSelect
-                // mode="modal"
                 dropdownPosition="top"
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -417,7 +375,6 @@ const UpdateEventFormScreen = () => {
                 data={items}
                 labelField="label"
                 valueField="value"
-                imagef
                 placeholder="카테고리 추가하기"
                 value={selected}
                 onChange={(item) => {
@@ -471,6 +428,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   formTitleText: {
+    display: "flex",
+    alignItems: "center",
     fontSize: 23,
     fontWeight: "600",
     marginLeft: 13,
@@ -478,12 +437,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   InputContainer: {
+    display: "flex",
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "space-between",
     marginVertical: 9,
     marginHorizontal: 24,
-    width: "auto",
+    width: "85%",
     height: "auto",
   },
   InputTitle: {
@@ -491,6 +451,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 16,
     fontWeight: "500",
+    width: 100,
   },
   InputBox: {
     borderRadius: 5,
@@ -550,13 +511,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     height: 25,
-    margin: "auto",
     backgroundColor: "#EBEBEB",
     borderColor: "black",
     borderStyle: "solid",
     borderWidth: 0.5,
     justifyContent: "center",
-    marginBottom: 5,
   },
   placeholderStyle: {
     fontSize: 14,
@@ -581,5 +540,25 @@ const styles = StyleSheet.create({
   textSelectedStyle: {
     marginRight: 5,
     fontSize: 15,
+  },
+
+  //
+  timeInputBox: {
+    borderRadius: 5,
+    width: "15%",
+    height: 23,
+    backgroundColor: "#EBEBEB",
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 0.5,
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  timeInputContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "70%",
+    height: "auto",
   },
 });
