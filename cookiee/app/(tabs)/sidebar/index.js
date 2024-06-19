@@ -86,7 +86,7 @@ const sideBarIndex = () => {
         style={S.buttonStyle}
         onPress={() =>
           router.push({
-            pathname: "mypage",
+            pathname: "myPage",
             params: {
               deviceID: deviceID,
             },
