@@ -4,14 +4,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  FlatList,
   TextInput,
-  ScrollView,
   Alert,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRouter, useLocalSearchParams } from "@react-navigation/native";
 
 import ColorPicker from "react-native-wheel-color-picker";
 import tinycolor from "tinycolor2";
@@ -19,8 +17,8 @@ import tinycolor from "tinycolor2";
 import { putCate } from "../../../api/category/putCate";
 
 const CategoryEdit = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
+  const router = useRouter();
+  const { deviceID } = useLocalSearchParams();
 
   const [selectedColor, setSelectedColor] = useState("#FFFFFF");
   const [categoryName, setCategoryName] = useState("");
@@ -40,10 +38,6 @@ const CategoryEdit = () => {
     }
   }, [route.params]);
 
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   const handleColorChange = (colorHsvOrRgb) => {
     const colorHex = tinycolor(colorHsvOrRgb).toHexString(); // Convert color to hex format
     setSelectedColor(colorHex);
@@ -56,12 +50,11 @@ const CategoryEdit = () => {
         categoryColor: selectedColor,
       };
 
-      const { deviceID } = useLocalSearchParams();
       const result = await putCate(deviceID, categoryId, categoryData);
 
       if (result.isSuccess) {
         console.log("Category added successfully:", result);
-        goBack();
+        router.back();
       } else {
         console.log("Failed to add category");
         Alert.alert("Error", "이미 존재하는 이름 또는 색상입니다.");
@@ -74,7 +67,7 @@ const CategoryEdit = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={goBack}>
+        <TouchableOpacity style={styles.menuIcon} onPress={router.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>🍪 카테고리 수정</Text>

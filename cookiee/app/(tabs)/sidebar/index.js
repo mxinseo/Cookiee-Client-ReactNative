@@ -8,9 +8,9 @@ import { AntDesign } from "@expo/vector-icons";
 
 const sideBarIndex = () => {
   const router = useRouter();
-
   const [userData, setUserData] = useState(null);
   const { deviceID } = useLocalSearchParams();
+  console.log(deviceID);
 
   const fetchUserData = async () => {
     try {
@@ -51,7 +51,14 @@ const sideBarIndex = () => {
       <View style={S.line}></View>
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("categoryFix")}
+        onPress={() =>
+          router.push({
+            pathname: "categoryFix",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>카테고리 수정</Text>
       </TouchableOpacity>

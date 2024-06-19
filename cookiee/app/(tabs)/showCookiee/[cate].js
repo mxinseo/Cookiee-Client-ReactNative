@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRouter } from "@react-navigation/native";
 import { useGlobalSearchParams } from "expo-router";
 
 import { collectCate } from "../../../api/category/collectCate";
@@ -17,7 +17,7 @@ import { collectCate } from "../../../api/category/collectCate";
 const ShowCookiee = () => {
   const { cate } = useGlobalSearchParams();
   const navigation = useNavigation();
-  const route = useRoute();
+  const route = useRouter();
 
   const [eventImages, setEventImages] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
@@ -62,7 +62,7 @@ const ShowCookiee = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={goBack}>
+        <TouchableOpacity style={styles.menuIcon} onPress={route.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>{cate}</Text>

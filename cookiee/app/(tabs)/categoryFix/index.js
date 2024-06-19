@@ -1,47 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { router } from "expo-router";
+import React, { useState, useCallback } from "react";
+import { useRouter, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  useNavigation,
-  useFocusEffect,
-  useRoute,
-} from "@react-navigation/native";
 
 import getCate from "../../../api/category/getCate";
 import deleteCate from "../../../api/category/deleteCate";
 
 const CategoryFix = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-
-  const goBack = () => {
-    navigation.goBack();
-  };
-
+  const router = useRouter();
   const { deviceID } = useLocalSearchParams();
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // Initialize as an empty array
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
+      let isActive = true;
+
       async function fetchData() {
         try {
           const result = await getCate(deviceID);
-          setData(result);
+          if (isActive) {
+            setData(result || []); // Ensure data is an array
+          }
         } catch (error) {
           console.log(error);
+          if (isActive) {
+            setData([]); // Set data to an empty array on error
+          }
         }
       }
 
       fetchData();
 
-      return () => {};
+      return () => {
+        isActive = false;
+      };
     }, [deviceID])
   );
 
-  const handleDelete = async (categoryId, categoryName) => {
+  const handleDelete = (categoryId, categoryName) => {
     Alert.alert(
       "카테고리 삭제",
       `${categoryName} 카테고리를 삭제하시겠습니까?`,
@@ -51,8 +48,10 @@ const CategoryFix = () => {
           onPress: async () => {
             try {
               await deleteCate(deviceID, categoryId);
-              setData(
-                data.filter((category) => category.categoryId !== categoryId)
+              setData((prevData) =>
+                prevData.filter(
+                  (category) => category.categoryId !== categoryId
+                )
               );
             } catch (error) {
               console.log("카테고리 삭제 중 오류 발생:", error);
@@ -70,7 +69,7 @@ const CategoryFix = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={goBack}>
+        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>🍪 카테고리 수정</Text>
