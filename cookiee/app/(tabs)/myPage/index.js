@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import { router } from "expo-router";
+import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getUser } from "../../../api/user/getUser";
 import { Linking } from "react-native";
 
 const myPage = () => {
-  const navigation = useNavigation();
+  const router = useRouter();
   const [userData, setUserData] = useState(null);
-
-  const goBack = () => {
-    navigation.goBack();
-  };
+  const { deviceID } = useLocalSearchParams();
 
   const fetchUserData = async () => {
     try {
-      const { deviceID } = useLocalSearchParams();
       const data = await getUser(deviceID);
       setUserData(data);
     } catch (error) {
@@ -34,7 +29,7 @@ const myPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={goBack}>
+        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>마이페이지</Text>
@@ -60,13 +55,12 @@ const myPage = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => router.push("myPageEdit")}
+          onPress={() => router.push({ pathname: "myPageEdit" })}
         >
           <Text style={styles.buttonText}>프로필 수정</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle}
-          // onPress={() => router.push("../../screens/UserGuide")}
           onPress={() =>
             Linking.openURL("https://youtu.be/O2Hv4VpVumg?feature=shared")
           }

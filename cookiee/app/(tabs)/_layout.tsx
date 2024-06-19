@@ -48,7 +48,6 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
-
         name="sidebar"
         options={{
           headerShown: false,
@@ -73,6 +72,12 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="collectCookiee"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="showCookiee"
         options={{
           headerShown: false,
@@ -82,14 +87,19 @@ export default function TabLayout() {
         name="myPage"
         options={{
           headerShown: false,
-          presentation: "modal",
         }}
       />
-    <Stack.Screen
+      <Stack.Screen
         name="updateForm"
         options={{
           headerShown: false,
           presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="myPageEdit"
+        options={{
+          headerShown: false,
         }}
       />
     </Stack>

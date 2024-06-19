@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getUser } from "../../../api/user/getUser";
 import { useFocusEffect } from "@react-navigation/native";
@@ -8,12 +8,13 @@ import { AntDesign } from "@expo/vector-icons";
 
 const sideBarIndex = () => {
   const router = useRouter();
-
+  const { deviceID } = useLocalSearchParams();
   const [userData, setUserData] = useState(null);
+
+  console.log(deviceID);
 
   const fetchUserData = async () => {
     try {
-        const { deviceID } = useLocalSearchParams();
       const data = await getUser(deviceID);
       setUserData(data);
     } catch (error) {
@@ -51,21 +52,46 @@ const sideBarIndex = () => {
       <View style={S.line}></View>
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("categoryFix")}
+        onPress={() =>
+          router.push({
+            pathname: "categoryFix",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>카테고리 수정</Text>
       </TouchableOpacity>
+
       <View style={S.line}></View>
+
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("collectCookiee")}
+        onPress={() =>
+          router.push({
+            pathname: "collectCookiee",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>쿠키 모아보기</Text>
       </TouchableOpacity>
+
       <View style={S.line}></View>
+
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("myPage")}
+        onPress={() =>
+          router.push({
+            pathname: "myPage",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>마이페이지</Text>
       </TouchableOpacity>

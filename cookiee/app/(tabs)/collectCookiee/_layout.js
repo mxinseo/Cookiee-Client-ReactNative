@@ -1,12 +1,12 @@
 import { Stack } from "expo-router";
 
-export default myPageLayout = () => {
+export default collectCookiee = () => {
   return (
     <Stack>
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "myPageLayout",
+          headerTitle: "collectCookiee",
           headerShown: false,
         }}
       />

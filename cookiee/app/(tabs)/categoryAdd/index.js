@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 import ColorPicker from "react-native-wheel-color-picker";
 import tinycolor from "tinycolor2";
@@ -18,13 +18,10 @@ import tinycolor from "tinycolor2";
 import { postCate } from "../../../api/category/postCate";
 
 const CategoryAdd = () => {
-  const navigation = useNavigation();
+  const router = useRouter();
   const [selectedColor, setSelectedColor] = useState("#FFFFFF");
   const [categoryName, setCategoryName] = useState("");
-
-  const goBack = () => {
-    navigation.goBack();
-  };
+  const { deviceID } = useLocalSearchParams();
 
   const handleColorChange = (colorHsvOrRgb) => {
     const colorHex = tinycolor(colorHsvOrRgb).toHexString();
@@ -38,13 +35,11 @@ const CategoryAdd = () => {
         categoryColor: selectedColor,
       };
 
-      const { deviceID } = useLocalSearchParams();
-
       const result = await postCate(deviceID, categoryData);
 
       if (result) {
         console.log("Category added successfully:", result);
-        goBack();
+        router.back();
       } else {
         console.log("Failed to add category");
       }

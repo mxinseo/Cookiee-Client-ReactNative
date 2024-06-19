@@ -23,7 +23,7 @@ import {
 
 import { getThumb } from "../../api/thumbnail/getThumb";
 
-export default function CalendarHome({navigation}) {
+export default function CalendarHome({ navigation }) {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
 
@@ -65,7 +65,9 @@ export default function CalendarHome({navigation}) {
       <View style={S.titleHeader}>
         <TouchableOpacity
           style={S.menuIcon}
-          onPress={() => router.push("sidebar")}
+          onPress={() =>
+            router.push({ pathname: "sidebar", params: { deviceID: deviceID } })
+          }
         >
           <Ionicons name="menu" size={40} color="#594E4E" />
         </TouchableOpacity>
