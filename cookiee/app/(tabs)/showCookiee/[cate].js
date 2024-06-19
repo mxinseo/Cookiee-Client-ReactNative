@@ -19,9 +19,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { collectCate } from "../../../api/category/collectCate";
 
 const ShowCookiee = () => {
+  const route = useRouter();
+
   const { cate } = useGlobalSearchParams();
   const { deviceID } = useLocalSearchParams();
-  const route = useRouter();
 
   const [eventImages, setEventImages] = useState([]);
   const [categoryId, setCategoryId] = useState(null);

@@ -56,7 +56,7 @@ const collectCookiee = () => {
               <TouchableOpacity
                 onPress={() =>
                   router.push({
-                    pathname: `showCookiee/${category.categoryId}`,
+                    pathname: `showCookiee/${category.categoryName}`,
                     params: {
                       categoryId: category.categoryId,
                       deviceID: deviceID,

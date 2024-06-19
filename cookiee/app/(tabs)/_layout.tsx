@@ -75,7 +75,6 @@ export default function TabLayout() {
         name="collectCookiee"
         options={{
           headerShown: false,
-          presentation: "modal",
         }}
       />
       <Stack.Screen
@@ -88,7 +87,6 @@ export default function TabLayout() {
         name="myPage"
         options={{
           headerShown: false,
-          presentation: "modal",
         }}
       />
       <Stack.Screen
