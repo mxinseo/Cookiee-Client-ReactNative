@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getUser } from "../../../api/user/getUser";
 import { useFocusEffect } from "@react-navigation/native";
@@ -10,10 +10,10 @@ const sideBarIndex = () => {
   const router = useRouter();
 
   const [userData, setUserData] = useState(null);
+  const { deviceID } = useLocalSearchParams();
 
   const fetchUserData = async () => {
     try {
-        const { deviceID } = useLocalSearchParams();
       const data = await getUser(deviceID);
       setUserData(data);
     } catch (error) {
