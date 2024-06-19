@@ -98,7 +98,7 @@ const CategoryFix = () => {
                   });
                 }}
               >
-                <AntDesign name="edit" size={30} color="#594E4E" />
+                <AntDesign name="edit" size={25} color="#594E4E" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.categoryDeleteBtn}
@@ -106,14 +106,19 @@ const CategoryFix = () => {
                   handleDelete(category.categoryId, category.categoryName)
                 }
               >
-                <AntDesign name="delete" size={30} color="#594E4E" />
+                <AntDesign name="delete" size={25} color="#594E4E" />
               </TouchableOpacity>
             </View>
           </View>
         ))}
         <TouchableOpacity
           style={styles.categoryItem}
-          onPress={() => router.push("categoryAdd")}
+          onPress={() =>
+            router.push({
+              pathname: "categoryAdd",
+              params: { deviceID: deviceID },
+            })
+          }
         >
           <View
             style={[
@@ -151,7 +156,7 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#594E4E",
   },
@@ -173,7 +178,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   categoryText: {
-    fontSize: 25,
+    fontSize: 20,
   },
   btnContainer: {
     flexDirection: "row",

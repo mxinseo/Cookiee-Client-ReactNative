@@ -82,7 +82,7 @@ const sideBarIndex = () => {
 
       <View style={S.line}></View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={S.buttonStyle}
         onPress={() =>
           router.push({
@@ -94,8 +94,8 @@ const sideBarIndex = () => {
         }
       >
         <Text style={S.textStyle}>마이페이지</Text>
-      </TouchableOpacity>
-      <View style={S.line}></View>
+      </TouchableOpacity> */}
+      {/* <View style={S.line}></View> */}
     </SafeAreaView>
   );
 };
@@ -108,8 +108,7 @@ const S = StyleSheet.create({
     paddingHorizontal: 3,
   },
   textStyle: {
-    fontSize: 27,
-
+    fontSize: 20,
     justifyContent: "center",
   },
   line: {

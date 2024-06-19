@@ -34,6 +34,7 @@ const CategoryAdd = () => {
         categoryName: categoryName,
         categoryColor: selectedColor,
       };
+      console.log(deviceID);
 
       const result = await postCate(deviceID, categoryData);
 
@@ -51,8 +52,8 @@ const CategoryAdd = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={goBack}>
-          <AntDesign name="arrowleft" size={30} color="#594E4E" />
+        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
+          <AntDesign name="arrowleft" size={25} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>🍪 카테고리 추가</Text>
       </View>
@@ -62,15 +63,16 @@ const CategoryAdd = () => {
           <View style={styles.selectedColor}>
             <ColorPicker
               color={selectedColor}
-              sliderSize={20}
+              sliderSize={15}
               onColorChange={handleColorChange}
-              style={{ flex: 1 }}
             />
           </View>
           <TextInput
+            id="categoryName"
+            autoCorrect={false}
             style={styles.textInput}
             placeholder="카테고리를 입력하세요"
-            placeholderTextColor="black"
+            placeholderTextColor="grey"
             value={categoryName}
             onChangeText={(text) => setCategoryName(text)}
           />
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#594E4E",
   },
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
   editContainer: {
     backgroundColor: "#F1F1F1",
     width: 600,
-    height: 700,
+    height: 500,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -124,34 +126,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedColor: {
-    width: 400,
-    height: 500,
-    marginTop: 20,
+    width: 200,
+    height: 300,
     borderWidth: 0,
     borderRadius: 15,
   },
   textInput: {
-    width: "80%",
-    height: 40,
+    width: "50%",
+    height: 50,
     backgroundColor: "#FFFFFF",
-    color: "#000000",
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 25,
-    padding: 5,
+    color: "grey",
+    marginTop: 30,
+    marginBottom: 10,
+    fontSize: 20,
+    padding: 15,
+    borderRadius: 10,
   },
 
   completeButton: {
-    marginBottom: 10,
-    width: 70,
-    height: 50,
+    marginVertical: 10,
+    width: 60,
+    height: 30,
     backgroundColor: "#FFF6F1E4",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonStyle: {
-    fontSize: 25,
+    fontSize: 20,
   },
 });
 
