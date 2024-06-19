@@ -96,6 +96,12 @@ export default function TabLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="myPageEdit"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

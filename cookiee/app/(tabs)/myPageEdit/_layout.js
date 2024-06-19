@@ -6,7 +6,7 @@ export default myPageLayout = () => {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "myPageLayout",
+          headerTitle: "myPageEditLayout",
           headerShown: false,
         }}
       />

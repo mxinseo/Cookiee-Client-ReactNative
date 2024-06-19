@@ -55,13 +55,12 @@ const myPage = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => router.push("myPageEdit")}
+          onPress={() => router.push({ pathname: "myPageEdit" })}
         >
           <Text style={styles.buttonText}>프로필 수정</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle}
-          // onPress={() => router.push("../../screens/UserGuide")}
           onPress={() =>
             Linking.openURL("https://youtu.be/O2Hv4VpVumg?feature=shared")
           }
