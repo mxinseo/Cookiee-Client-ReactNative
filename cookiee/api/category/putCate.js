@@ -1,7 +1,7 @@
-export const putCate = async (userId, categoryId, categoryData) => {
+export const putCate = async (deviceID, categoryId, categoryData) => {
   try {
     const response = await fetch(
-      `https://cookiee.site/category/${userId}/${categoryId}`,
+      `https://cookiee.site/api/v1/categories/${deviceID}/${categoryId}`,
       {
         method: "PUT",
         headers: {

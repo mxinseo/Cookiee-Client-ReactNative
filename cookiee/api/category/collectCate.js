@@ -1,7 +1,7 @@
-export const collectCate = async (userId, categoryId) => {
+export const collectCate = async (deviceID, categoryId) => {
   try {
     const response = await fetch(
-      `https://cookiee.site/collection/${userId}/${categoryId}`,
+      `https://cookiee.site/api/v1/categories/${deviceID}/${categoryId}`,
       {
         method: "GET",
         headers: {
