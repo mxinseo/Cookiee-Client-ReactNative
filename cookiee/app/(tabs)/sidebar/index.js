@@ -8,8 +8,9 @@ import { AntDesign } from "@expo/vector-icons";
 
 const sideBarIndex = () => {
   const router = useRouter();
-  const [userData, setUserData] = useState(null);
   const { deviceID } = useLocalSearchParams();
+  const [userData, setUserData] = useState(null);
+
   console.log(deviceID);
 
   const fetchUserData = async () => {
@@ -62,17 +63,35 @@ const sideBarIndex = () => {
       >
         <Text style={S.textStyle}>카테고리 수정</Text>
       </TouchableOpacity>
+
       <View style={S.line}></View>
+
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("collectCookiee")}
+        onPress={() =>
+          router.push({
+            pathname: "collectCookiee",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>쿠키 모아보기</Text>
       </TouchableOpacity>
+
       <View style={S.line}></View>
+
       <TouchableOpacity
         style={S.buttonStyle}
-        onPress={() => router.push("myPage")}
+        onPress={() =>
+          router.push({
+            pathname: "mypage",
+            params: {
+              deviceID: deviceID,
+            },
+          })
+        }
       >
         <Text style={S.textStyle}>마이페이지</Text>
       </TouchableOpacity>

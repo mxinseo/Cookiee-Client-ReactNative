@@ -1,14 +1,10 @@
 export const collectCate = async (deviceID, categoryId) => {
+  console.log(deviceID + categoryId);
   try {
     const response = await fetch(
-      `https://cookiee.site/api/v1/categories/${deviceID}/${categoryId}`,
+      `https://cookiee.site/api/v1/categories/collection/${deviceID}/${categoryId}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MTA2MDg0MzQsImV4cCI6MTcxMzIwMDQzNH0.6-gn5ii_qhFOE5RDSGHphwu7QcvWxbQziZ6Oe-uB5pM",
-        },
       }
     );
 

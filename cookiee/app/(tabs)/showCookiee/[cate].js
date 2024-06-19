@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -9,24 +9,30 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useRouter } from "@react-navigation/native";
-import { useGlobalSearchParams } from "expo-router";
+import {
+  useRouter,
+  useGlobalSearchParams,
+  useLocalSearchParams,
+} from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { collectCate } from "../../../api/category/collectCate";
 
 const ShowCookiee = () => {
   const { cate } = useGlobalSearchParams();
-  const navigation = useNavigation();
+  const { deviceID } = useLocalSearchParams();
   const route = useRouter();
 
   const [eventImages, setEventImages] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
 
-  useEffect(() => {
-    if (route.params?.categoryId) {
-      setCategoryId(route.params.categoryId);
-    }
-  }, [route.params]);
+  useFocusEffect(
+    useCallback(() => {
+      if (route.params?.categoryId) {
+        setCategoryId(route.params.categoryId);
+      }
+    }, [route.params])
+  );
 
   useEffect(() => {
     if (categoryId !== null) {
@@ -36,15 +42,12 @@ const ShowCookiee = () => {
 
   const handleComplete = async () => {
     try {
-      const userId = 32;
-      console.log(categoryId);
-
       if (!categoryId) {
         console.error("categoryId is not set");
         return;
       }
 
-      const result = await collectCate(userId, categoryId);
+      const result = await collectCate(deviceID, categoryId);
       console.log(result);
 
       if (result && result.eventImageList) {
@@ -55,14 +58,10 @@ const ShowCookiee = () => {
     }
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={route.back()}>
+        <TouchableOpacity style={styles.menuIcon} onPress={() => route.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>{cate}</Text>
@@ -111,9 +110,9 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    aspectRatio: 1, // Ensure images maintain their aspect ratio
+    aspectRatio: 1,
     margin: 2,
-    width: "32%", // Set a specific width for each image to fit in three columns
+    width: "32%",
   },
 });
 

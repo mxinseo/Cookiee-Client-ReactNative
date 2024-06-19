@@ -72,6 +72,13 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="collectCookiee"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
         name="showCookiee"
         options={{
           headerShown: false,
