@@ -1,7 +1,7 @@
-export const deleteCate = async (userId, categoryId) => {
+export const deleteCate = async (deviceID, categoryId) => {
   try {
     const response = await fetch(
-      `https://cookiee.site/category/${userId}/${categoryId}`,
+      `https://cookiee.site/api/v1/categories/${deviceID}/${categoryId}`,
       {
         method: "DELETE",
         headers: {

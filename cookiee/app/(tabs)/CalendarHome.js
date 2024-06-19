@@ -9,6 +9,7 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState, useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-get-random-values";
@@ -22,7 +23,7 @@ import {
 
 import { getThumb } from "../../api/thumbnail/getThumb";
 
-export default function CalendarHome() {
+export default function CalendarHome({navigation}) {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
 
@@ -64,7 +65,7 @@ export default function CalendarHome() {
       <View style={S.titleHeader}>
         <TouchableOpacity
           style={S.menuIcon}
-          // onPress={() => router.push("sidebar")}
+          onPress={() => router.push("sidebar")}
         >
           <Ionicons name="menu" size={40} color="#594E4E" />
         </TouchableOpacity>

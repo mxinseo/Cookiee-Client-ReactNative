@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const postCate = async (userId, categoryData) => {
+export const postCate = async (deviceID, categoryData) => {
   try {
     const response = await axios.post(
-      `https://cookiee.site/category/${userId}`,
+      `https://cookiee.site/api/v1/categories/${deviceID}`,
       categoryData,
       {
         headers: {
