@@ -48,6 +48,7 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+
         name="sidebar"
         options={{
           headerShown: false,
@@ -81,6 +82,14 @@ export default function TabLayout() {
         name="myPage"
         options={{
           headerShown: false,
+          presentation: "modal",
+        }}
+      />
+    <Stack.Screen
+        name="updateForm"
+        options={{
+          headerShown: false,
+          presentation: "modal",
         }}
       />
     </Stack>

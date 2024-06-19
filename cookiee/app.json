@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.appscookiee.cookiee",
+      "bundleIdentifier": "ATV75VJ92J",
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
           {
