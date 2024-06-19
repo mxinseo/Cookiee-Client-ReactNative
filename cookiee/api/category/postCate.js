@@ -4,13 +4,7 @@ export const postCate = async (deviceID, categoryData) => {
   try {
     const response = await axios.post(
       `https://cookiee.site/api/v1/categories/${deviceID}`,
-      categoryData,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMiIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3MDk1MTM4NzcsImV4cCI6MTcxMjEwNTg3N30.ZHC6ZPw6WsTfMR7at4FLkLAjNDU0vOMgfWL1lI3DsOs",
-        },
-      }
+      categoryData
     );
 
     if (response.status !== 200) {
