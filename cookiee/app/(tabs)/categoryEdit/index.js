@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter, useLocalSearchParams } from "@react-navigation/native";
-
+import { useRouter, useGlobalSearchParams } from "expo-router";
 import ColorPicker from "react-native-wheel-color-picker";
 import tinycolor from "tinycolor2";
 
@@ -18,25 +17,11 @@ import { putCate } from "../../../api/category/putCate";
 
 const CategoryEdit = () => {
   const router = useRouter();
-  const { deviceID } = useLocalSearchParams();
+  const { categoryId, categoryName, deviceID } = useGlobalSearchParams();
+
+  console.log(categoryId + categoryName + deviceID);
 
   const [selectedColor, setSelectedColor] = useState("#FFFFFF");
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryId, setCategoryId] = useState(null);
-
-  useEffect(() => {
-    if (route.params?.categoryId) {
-      setCategoryId(route.params.categoryId);
-    }
-
-    if (route.params?.categoryName) {
-      setCategoryName(route.params.categoryName);
-    }
-
-    if (route.params?.categoryColor) {
-      setSelectedColor(route.params.categoryColor);
-    }
-  }, [route.params]);
 
   const handleColorChange = (colorHsvOrRgb) => {
     const colorHex = tinycolor(colorHsvOrRgb).toHexString(); // Convert color to hex format
@@ -78,15 +63,16 @@ const CategoryEdit = () => {
           <View style={styles.selectedColor}>
             <ColorPicker
               color={selectedColor}
-              sliderSize={20}
+              sliderSize={15}
               onColorChange={handleColorChange}
-              style={{ flex: 1 }}
             />
           </View>
           <TextInput
+            id="categoryName"
+            autoCorrect={false}
             style={styles.textInput}
             placeholder="카테고리를 입력하세요"
-            placeholderTextColor="black"
+            placeholderTextColor="grey"
             value={categoryName}
             onChangeText={(text) => setCategoryName(text)}
           />
@@ -130,7 +116,7 @@ const styles = StyleSheet.create({
   editContainer: {
     backgroundColor: "#F1F1F1",
     width: 600,
-    height: 700,
+    height: 500,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -140,33 +126,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedColor: {
-    width: 400,
-    height: 500,
-    marginTop: 20,
+    width: 200,
+    height: 300,
     borderWidth: 0,
     borderRadius: 15,
   },
   textInput: {
-    width: "80%",
-    height: 40,
-    backgroundColor: "#FFFFFF",
-    color: "#000000",
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 25,
-    padding: 5,
-  },
-  completeButton: {
-    marginBottom: 10,
-    width: 70,
+    width: "50%",
     height: 50,
+    backgroundColor: "#FFFFFF",
+    color: "grey",
+    marginTop: 30,
+    marginBottom: 10,
+    fontSize: 20,
+    padding: 15,
+    borderRadius: 10,
+  },
+
+  completeButton: {
+    marginVertical: 10,
+    width: 60,
+    height: 30,
     backgroundColor: "#FFF6F1E4",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonStyle: {
-    fontSize: 25,
+    fontSize: 20,
   },
 });
 

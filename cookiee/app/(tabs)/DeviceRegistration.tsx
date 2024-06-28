@@ -1,8 +1,10 @@
 import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "expo-router";
 
 import DeviceInfo from "react-native-device-info";
+
+import axios from "axios";
 
 export default function DeviceRegistration() {
   const router = useRouter();
@@ -11,19 +13,38 @@ export default function DeviceRegistration() {
   const getDeviceUUID = async () => {
     const uniqueID = await DeviceInfo.getUniqueId();
     setDeviceID(uniqueID);
+    registerDevice(uniqueID);
   };
 
-  useEffect(() => {
-    if (deviceID) {
-      console.log("deviceID : " + deviceID);
+  const registerDevice = async (deviceID: string) => {
+    try {
+      const response = await axios.post(
+        `https://cookiee.site/api/v1/users/${deviceID}`
+      );
+
       router.push({
         pathname: "CalendarHome",
         params: {
           deviceID: deviceID,
         },
       });
+    } catch (error) {
+      console.error("Error postUser data:", error);
+      return null;
     }
-  }, [deviceID]);
+  };
+
+  // useEffect(() => {
+  //   if (deviceID) {
+  //     console.log("deviceID : " + deviceID);
+  //     router.push({
+  //       pathname: "CalendarHome",
+  //       params: {
+  //         deviceID: deviceID,
+  //       },
+  //     });
+  //   }
+  // }, [deviceID]);
 
   return (
     <View style={styles.container}>
@@ -41,7 +62,7 @@ export default function DeviceRegistration() {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={getDeviceUUID}>
-          <Text style={styles.buttonText}>get Device Id</Text>
+          <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
