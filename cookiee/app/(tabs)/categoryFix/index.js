@@ -1,6 +1,14 @@
 import React, { useState, useCallback } from "react";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { useRouter, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -68,73 +76,80 @@ const CategoryFix = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
-          <AntDesign name="arrowleft" size={30} color="#594E4E" />
-        </TouchableOpacity>
-        <Text style={styles.title}>🍪 카테고리 수정</Text>
-      </View>
-      <View style={styles.categoryList}>
-        {data.map((category, index) => (
-          <View key={index} style={styles.categoryItem}>
-            <View
-              style={[
-                styles.colorBox,
-                { backgroundColor: category.categoryColor },
-              ]}
-            />
-            <Text style={styles.categoryText}>{category.categoryName}</Text>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                style={styles.categoryFixBtn}
-                onPress={() => {
-                  router.push({
-                    pathname: "categoryEdit",
-                    params: {
-                      categoryId: category.categoryId,
-                      categoryName: category.categoryName,
-                      deviceID: deviceID,
-                    },
-                  });
-                }}
-              >
-                <AntDesign name="edit" size={25} color="#594E4E" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.categoryDeleteBtn}
-                onPress={() =>
-                  handleDelete(category.categoryId, category.categoryName)
-                }
-              >
-                <AntDesign name="delete" size={25} color="#594E4E" />
-              </TouchableOpacity>
-            </View>
+      <TouchableWithoutFeedback>
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}>
+          <View style={styles.titleHeader}>
+            <TouchableOpacity
+              style={styles.menuIcon}
+              onPress={() => router.back()}
+            >
+              <AntDesign name="arrowleft" size={30} color="#594E4E" />
+            </TouchableOpacity>
+            <Text style={styles.title}>🍪 카테고리 수정</Text>
           </View>
-        ))}
-        <TouchableOpacity
-          style={styles.categoryItem}
-          onPress={() =>
-            router.push({
-              pathname: "categoryAdd",
-              params: { deviceID: deviceID },
-            })
-          }
-        >
-          <View
-            style={[
-              styles.colorBox,
-              {
-                backgroundColor: "#D9D9D9",
-                justifyContent: "center",
-                alignItems: "center",
-              },
-            ]}
-          >
-            <AntDesign name="plus" size={9} color="#FFF" />
+          <View style={styles.categoryList}>
+            {data.map((category, index) => (
+              <View key={index} style={styles.categoryItem}>
+                <View
+                  style={[
+                    styles.colorBox,
+                    { backgroundColor: category.categoryColor },
+                  ]}
+                />
+                <Text style={styles.categoryText}>{category.categoryName}</Text>
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity
+                    style={styles.categoryFixBtn}
+                    onPress={() => {
+                      router.push({
+                        pathname: "categoryEdit",
+                        params: {
+                          categoryId: category.categoryId,
+                          categoryName: category.categoryName,
+                          deviceID: deviceID,
+                        },
+                      });
+                    }}
+                  >
+                    <AntDesign name="edit" size={25} color="#594E4E" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.categoryDeleteBtn}
+                    onPress={() =>
+                      handleDelete(category.categoryId, category.categoryName)
+                    }
+                  >
+                    <AntDesign name="delete" size={25} color="#594E4E" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+            <TouchableOpacity
+              style={styles.categoryItem}
+              onPress={() =>
+                router.push({
+                  pathname: "categoryAdd",
+                  params: { deviceID: deviceID },
+                })
+              }
+            >
+              <View
+                style={[
+                  styles.colorBox,
+                  {
+                    backgroundColor: "#D9D9D9",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                ]}
+              >
+                <AntDesign name="plus" size={9} color="#FFF" />
+              </View>
+              <Text style={styles.categoryText}>추가하기</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.categoryText}>추가하기</Text>
-        </TouchableOpacity>
-      </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
