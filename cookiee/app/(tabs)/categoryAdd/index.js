@@ -7,6 +7,7 @@ import {
   FlatList,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
