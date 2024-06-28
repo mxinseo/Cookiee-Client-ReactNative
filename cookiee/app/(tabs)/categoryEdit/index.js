@@ -52,7 +52,7 @@ const CategoryEdit = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={router.back()}>
+        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
         <Text style={styles.title}>🍪 카테고리 수정</Text>
