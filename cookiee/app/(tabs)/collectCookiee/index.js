@@ -19,10 +19,8 @@ const collectCookiee = () => {
         const result = await getCate(deviceID);
         if (!completed) {
           setData(result);
-          console.log(result);
         }
       } catch (error) {
-        console.log(error);
       }
     }
 
