@@ -44,7 +44,7 @@ const CategoryEdit = () => {
       router.back();
       Alert.alert(result.message);
     } catch (error) {
-      Alert.alert(result.message);
+      Alert.alert(error);
     }
   };
 
