@@ -72,7 +72,7 @@ const CategoryEdit = () => {
               <View style={styles.selectedColor}>
                 <ColorPicker
                   color={selectedColor}
-                  sliderSize={15}
+                  sliderSize={20}
                   onColorChange={handleColorChange}
                 />
               </View>
