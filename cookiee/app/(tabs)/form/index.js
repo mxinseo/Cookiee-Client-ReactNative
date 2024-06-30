@@ -228,7 +228,7 @@ const AddEventFormScreen = () => {
       <SafeAreaView style={styles.Container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
-            keyboardVerticalOffset={30}
+            keyboardVerticalOffset={200}
             behavior={"padding"}
             style={{ flex: 1 }}
           >

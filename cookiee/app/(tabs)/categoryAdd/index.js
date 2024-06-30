@@ -38,14 +38,13 @@ const CategoryAdd = () => {
       };
 
       const result = await postCate(deviceID, categoryData);
+      console.log(result);
 
       if (result) {
         router.back();
-      } else {
-        Alert.alert("Error", "이미 존재하는 이름 또는 색상입니다.");
       }
     } catch (error) {
-      Alert.alert("Error", "다시 한 번 시도해 주세요.");
+      Alert.alert(result.message);
     }
   };
 
