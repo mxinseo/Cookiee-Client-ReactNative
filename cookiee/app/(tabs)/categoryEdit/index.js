@@ -32,20 +32,16 @@ const CategoryEdit = () => {
   };
 
   const handleComplete = async () => {
-    try {
-      const categoryData = {
-        categoryName: newCategoryName,
-        categoryColor: selectedColor,
-      };
+    const categoryData = {
+      categoryName: newCategoryName,
+      categoryColor: selectedColor,
+    };
 
-      const result = await putCate(deviceID, categoryId, categoryData);
-      console.log(result);
+    const result = await putCate(deviceID, categoryId, categoryData);
+    console.log(result);
 
-      router.back();
-      Alert.alert(result.message);
-    } catch (error) {
-      Alert.alert(error);
-    }
+    router.back();
+    Alert.alert(result.message);
   };
 
   return (
