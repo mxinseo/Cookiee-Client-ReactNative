@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getUser } from "../../../api/user/getUser";
@@ -65,6 +71,19 @@ const sideBarIndex = () => {
         }
       >
         <Text style={S.textStyle}>쿠키 모아보기</Text>
+      </TouchableOpacity>
+
+      <View style={S.line}></View>
+
+      <TouchableOpacity
+        style={S.buttonStyle}
+        onPress={() =>
+          Linking.openURL(
+            "https://jewel-eucalyptus-c6e.notion.site/a34c2f36570245d7a533e11103b9136d?pvs=4"
+          )
+        }
+      >
+        <Text style={S.textStyle}>약관 및 정책</Text>
       </TouchableOpacity>
 
       <View style={S.line}></View>
