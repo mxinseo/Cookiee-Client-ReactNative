@@ -67,13 +67,14 @@ const CategoryAdd = () => {
 
           <View style={styles.centeredContainer}>
             <View style={styles.editContainer}>
-              <View style={styles.selectedColor}>
-                <ColorPicker
-                  color={selectedColor}
-                  sliderSize={20}
-                  onColorChange={handleColorChange}
-                />
-              </View>
+              <ColorPicker
+                style={styles.selectedColor}
+                color={selectedColor}
+                sliderSize={20}
+                onColorChange={handleColorChange}
+                thumbSize={20}
+              />
+
               <TextInput
                 id="categoryName"
                 autoCorrect={false}
@@ -125,9 +126,10 @@ const styles = StyleSheet.create({
   editContainer: {
     backgroundColor: "#F1F1F1",
     width: 600,
-    height: 500,
+    height: "70%",
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
   },
   centeredContainer: {
     flex: 1,
@@ -135,14 +137,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedColor: {
-    width: 200,
-    height: 300,
+    width: "40%",
+    height: "auto",
     borderWidth: 0,
     borderRadius: 15,
   },
   textInput: {
     width: "50%",
-    height: 50,
+    height: "auto",
     backgroundColor: "#FFFFFF",
     color: "grey",
     marginTop: 30,
