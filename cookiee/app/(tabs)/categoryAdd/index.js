@@ -38,14 +38,12 @@ const CategoryAdd = () => {
       };
 
       const result = await postCate(deviceID, categoryData);
+      console.log(result);
 
-      if (result) {
-        router.back();
-      } else {
-        Alert.alert("Error", "이미 존재하는 이름 또는 색상입니다.");
-      }
+      router.back();
+      Alert.alert(result.message);
     } catch (error) {
-      Alert.alert("Error", "다시 한 번 시도해 주세요.");
+      Alert.alert(result.message);
     }
   };
 
@@ -53,7 +51,7 @@ const CategoryAdd = () => {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={50}
+          keyboardVerticalOffset={90}
           behavior={"padding"}
           style={{ flex: 1 }}
         >
@@ -69,13 +67,14 @@ const CategoryAdd = () => {
 
           <View style={styles.centeredContainer}>
             <View style={styles.editContainer}>
-              <View style={styles.selectedColor}>
-                <ColorPicker
-                  color={selectedColor}
-                  sliderSize={15}
-                  onColorChange={handleColorChange}
-                />
-              </View>
+              <ColorPicker
+                style={styles.selectedColor}
+                color={selectedColor}
+                sliderSize={20}
+                onColorChange={handleColorChange}
+                thumbSize={20}
+              />
+
               <TextInput
                 id="categoryName"
                 autoCorrect={false}
@@ -130,6 +129,7 @@ const styles = StyleSheet.create({
     height: 500,
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
   },
   centeredContainer: {
     flex: 1,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedColor: {
-    width: 200,
-    height: 300,
+    width: "40%",
+    height: 600,
     borderWidth: 0,
     borderRadius: 15,
   },

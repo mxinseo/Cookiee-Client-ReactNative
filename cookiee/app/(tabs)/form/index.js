@@ -152,7 +152,6 @@ const AddEventFormScreen = () => {
     year: selectedDate.year,
     month: selectedDate.month,
     date: selectedDate.date,
-    imgUrl: [],
     cate: "",
     time: "",
     place: "",
@@ -170,20 +169,30 @@ const AddEventFormScreen = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    setIsSubmitting(true);
-
-    // 입력 필드 초기화
-    setNewEvent({
-      year: selectedDate.year,
-      month: selectedDate.month,
-      date: selectedDate.date,
-      imgUrl: [],
-      cate: "",
-      time: "",
-      place: "",
-      what: "",
-      people: "",
-    });
+    if (
+      newEvent.what === "" ||
+      newEvent.place === "" ||
+      newEvent.people === "" ||
+      timeField.startTime === "" ||
+      timeField.startMin === "" ||
+      timeField.endTime === "" ||
+      timeField.endMin === "" ||
+      selected.length === 0 ||
+      imageDataArray.length === 0
+    ) {
+      Alert.alert(
+        "입력 누락",
+        "모든 필드를 입력해 주세요.",
+        [
+          {
+            text: "확인",
+          },
+        ],
+        { cancelable: false }
+      );
+      setIsSubmitting(false);
+      return;
+    }
 
     // FormData
     formData.append("eventWhat", newEvent.what);
@@ -206,7 +215,8 @@ const AddEventFormScreen = () => {
       formData.append(`categoryIds`, category);
     });
 
-    console.log("fetch 시도");
+    setIsSubmitting(true);
+
     fetch(`https://cookiee.site/api/v1/events/${deviceID}`, {
       method: "POST",
       body: formData,
@@ -228,7 +238,7 @@ const AddEventFormScreen = () => {
       <SafeAreaView style={styles.Container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
-            keyboardVerticalOffset={30}
+            keyboardVerticalOffset={200}
             behavior={"padding"}
             style={{ flex: 1 }}
           >
