@@ -68,21 +68,6 @@ const sideBarIndex = () => {
       </TouchableOpacity>
 
       <View style={S.line}></View>
-
-      {/* <TouchableOpacity
-        style={S.buttonStyle}
-        onPress={() =>
-          router.push({
-            pathname: "myPage",
-            params: {
-              deviceID: deviceID,
-            },
-          })
-        }
-      >
-        <Text style={S.textStyle}>마이페이지</Text>
-      </TouchableOpacity> */}
-      {/* <View style={S.line}></View> */}
     </SafeAreaView>
   );
 };
