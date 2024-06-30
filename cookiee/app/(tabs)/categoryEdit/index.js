@@ -51,7 +51,7 @@ const CategoryEdit = () => {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={50}
+          keyboardVerticalOffset={90}
           behavior={"padding"}
           style={{ flex: 1 }}
         >
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   editContainer: {
     backgroundColor: "#F1F1F1",
     width: 600,
-    height: "70%",
+    height: 500,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   selectedColor: {
     width: "40%",
-    height: "auto",
+    height: 600,
     borderWidth: 0,
     borderRadius: 15,
   },
