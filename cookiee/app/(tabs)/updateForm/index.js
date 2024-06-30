@@ -1,4 +1,5 @@
 import {
+  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -7,6 +8,9 @@ import {
   Dimensions,
   Image,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState, useCallback } from "react";
 
@@ -193,214 +197,221 @@ const UpdateEventFormScreen = () => {
 
   if (isSubmitting == false) {
     return (
-      <View style={styles.Container}>
-        <View style={styles.formHeader}>
-          <TouchableOpacity
-            style={styles.headerBtn}
-            title="이벤트 추가하가"
-            onPress={handleSubmit}
+      <SafeAreaView style={styles.Container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            keyboardVerticalOffset={30}
+            behavior={"padding"}
+            style={{ flex: 1 }}
           >
-            <Text style={styles.headerBtnText}>완료</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            alignSelf: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "50%",
-            position: "relative",
-          }}
-        >
-          {imageUrl && imageUrl.length === 0 ? (
-            // 이미지가 업로드되지 않았을 때
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
+            <View style={styles.formHeader}>
               <TouchableOpacity
-                onPress={uploadImage}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#EBEBEB",
-                  width: "70%",
-                  height: "80%",
-                  borderRadius: 10,
-                }}
+                style={styles.headerBtn}
+                title="이벤트 추가하가"
+                onPress={handleSubmit}
               >
-                <Text>No Image</Text>
+                <Text style={styles.headerBtnText}>완료</Text>
               </TouchableOpacity>
             </View>
-          ) : (
-            // 이미지가 업로드된 후
-            <Carousel
-              loop
-              mode="parallax"
-              width={width}
-              autoPlay={false}
-              data={imageUrl}
-              scrollAnimationDuration={500}
+            <View
               style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
+                alignSelf: "center",
                 justifyContent: "center",
-                height: "100%",
+                width: "100%",
+                height: "50%",
+                position: "relative",
               }}
-              renderItem={({ item, index }) => (
+            >
+              {imageUrl && imageUrl.length === 0 ? (
+                // 이미지가 업로드되지 않았을 때
                 <View
                   style={{
                     flex: 1,
-                    padding: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={uploadImage}
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#EBEBEB",
+                      width: "70%",
+                      height: "80%",
+                      borderRadius: 10,
+                    }}
+                  >
+                    <Text>No Image</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                // 이미지가 업로드된 후
+                <Carousel
+                  loop
+                  mode="parallax"
+                  width={width}
+                  autoPlay={false}
+                  data={imageUrl}
+                  scrollAnimationDuration={500}
+                  style={{
+                    display: "flex",
+                    width: "100%",
                     alignItems: "center",
                     justifyContent: "center",
                     height: "100%",
                   }}
-                >
-                  <Image
-                    source={{ uri: item }}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      resizeMode: "contain",
-                    }}
-                  />
-                </View>
-              )}
-            />
-          )}
-        </View>
-
-        <View style={styles.formTitleContainer}>
-          <Text style={styles.formTitleText}>🍪 사진 정보 작성</Text>
-        </View>
-
-        <View style={styles.formContainer}>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>시작 시간</Text>
-
-            <View style={styles.timeInputContainer}>
-              <TextInput
-                id="startTime"
-                style={styles.timeInputBox}
-                onChangeText={(text) =>
-                  setTimeField((prevState) => {
-                    return { ...prevState, startTime: text };
-                  })
-                }
-              />
-              <Text>시</Text>
-              <TextInput
-                id="startMin"
-                style={styles.timeInputBox}
-                onChangeText={(text) =>
-                  setTimeField((prevState) => {
-                    return { ...prevState, startMin: text };
-                  })
-                }
-              />
-              <Text>분</Text>
-            </View>
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>종료 시간</Text>
-            <View style={styles.timeInputContainer}>
-              <TextInput
-                id="endTime"
-                style={styles.timeInputBox}
-                onChangeText={(text) =>
-                  setTimeField((prevState) => {
-                    return { ...prevState, endTime: text };
-                  })
-                }
-              />
-              <Text>시</Text>
-              <TextInput
-                id="endMin"
-                style={styles.timeInputBox}
-                onChangeText={(text) =>
-                  setTimeField((prevState) => {
-                    return { ...prevState, endMin: text };
-                  })
-                }
-              />
-              <Text>분</Text>
-            </View>
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>장소</Text>
-            <TextInput
-              id="place"
-              style={styles.InputBox}
-              placeholder="  장소"
-              value={newEvent.place}
-              onChangeText={(text) => handleInputChange(text, "place")}
-              autoCorrect={false}
-            />
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>내용</Text>
-            <TextInput
-              id="content"
-              style={styles.InputBox}
-              placeholder="  내용"
-              value={newEvent.what}
-              onChangeText={(text) => handleInputChange(text, "what")}
-            />
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>함께한 사람</Text>
-            <TextInput
-              id="people"
-              style={styles.InputBox}
-              placeholder="  사람"
-              value={newEvent.people}
-              onChangeText={(text) => handleInputChange(text, "people")}
-            />
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={styles.InputTitle}>카테고리</Text>
-            <View style={styles.dropdownContainer}>
-              <MultiSelect
-                dropdownPosition="top"
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                data={items}
-                labelField="label"
-                valueField="value"
-                placeholder="카테고리 추가하기"
-                value={selected}
-                onChange={(item) => {
-                  setSelected(item);
-                  console.log(item);
-                }}
-                renderSelectedItem={(item, unSelect) => (
-                  <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
+                  renderItem={({ item, index }) => (
                     <View
                       style={{
-                        ...styles.selectedStyle,
-                        backgroundColor: `${item.color}`,
+                        flex: 1,
+                        padding: 10,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: "100%",
                       }}
                     >
-                      <Text style={styles.textSelectedStyle}>
-                        #{item.label}
-                      </Text>
-                      <AntDesign color="black" name="delete" size={13} />
+                      <Image
+                        source={{ uri: item }}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          resizeMode: "contain",
+                        }}
+                      />
                     </View>
-                  </TouchableOpacity>
-                )}
-              />
+                  )}
+                />
+              )}
             </View>
-          </View>
-        </View>
-      </View>
+            <View style={styles.formTitleContainer}>
+              <Text style={styles.formTitleText}>🍪 사진 정보 작성</Text>
+            </View>
+            <View style={styles.formContainer}>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>시작 시간</Text>
+
+                <View style={styles.timeInputContainer}>
+                  <TextInput
+                    id="startTime"
+                    style={styles.timeInputBox}
+                    onChangeText={(text) =>
+                      setTimeField((prevState) => {
+                        return { ...prevState, startTime: text };
+                      })
+                    }
+                  />
+                  <Text>시</Text>
+                  <TextInput
+                    id="startMin"
+                    style={styles.timeInputBox}
+                    onChangeText={(text) =>
+                      setTimeField((prevState) => {
+                        return { ...prevState, startMin: text };
+                      })
+                    }
+                  />
+                  <Text>분</Text>
+                </View>
+              </View>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>종료 시간</Text>
+                <View style={styles.timeInputContainer}>
+                  <TextInput
+                    id="endTime"
+                    style={styles.timeInputBox}
+                    onChangeText={(text) =>
+                      setTimeField((prevState) => {
+                        return { ...prevState, endTime: text };
+                      })
+                    }
+                  />
+                  <Text>시</Text>
+                  <TextInput
+                    id="endMin"
+                    style={styles.timeInputBox}
+                    onChangeText={(text) =>
+                      setTimeField((prevState) => {
+                        return { ...prevState, endMin: text };
+                      })
+                    }
+                  />
+                  <Text>분</Text>
+                </View>
+              </View>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>장소</Text>
+                <TextInput
+                  id="place"
+                  style={styles.InputBox}
+                  placeholder="  장소"
+                  value={newEvent.place}
+                  onChangeText={(text) => handleInputChange(text, "place")}
+                  autoCorrect={false}
+                />
+              </View>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>내용</Text>
+                <TextInput
+                  id="content"
+                  style={styles.InputBox}
+                  placeholder="  내용"
+                  value={newEvent.what}
+                  onChangeText={(text) => handleInputChange(text, "what")}
+                />
+              </View>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>함께한 사람</Text>
+                <TextInput
+                  id="people"
+                  style={styles.InputBox}
+                  placeholder="  사람"
+                  value={newEvent.people}
+                  onChangeText={(text) => handleInputChange(text, "people")}
+                />
+              </View>
+              <View style={styles.InputContainer}>
+                <Text style={styles.InputTitle}>카테고리</Text>
+                <View style={styles.dropdownContainer}>
+                  <MultiSelect
+                    dropdownPosition="top"
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    data={items}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="카테고리 추가하기"
+                    value={selected}
+                    onChange={(item) => {
+                      setSelected(item);
+                      console.log(item);
+                    }}
+                    renderSelectedItem={(item, unSelect) => (
+                      <TouchableOpacity
+                        onPress={() => unSelect && unSelect(item)}
+                      >
+                        <View
+                          style={{
+                            ...styles.selectedStyle,
+                            backgroundColor: `${item.color}`,
+                          }}
+                        >
+                          <Text style={styles.textSelectedStyle}>
+                            #{item.label}
+                          </Text>
+                          <AntDesign color="black" name="delete" size={13} />
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                  />
+                </View>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
     );
   } else {
     return (
