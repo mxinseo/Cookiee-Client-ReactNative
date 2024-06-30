@@ -20,10 +20,11 @@ import { putCate } from "../../../api/category/putCate";
 
 const CategoryEdit = () => {
   const router = useRouter();
-  const { categoryId, categoryName, deviceID } = useGlobalSearchParams();
+  const { categoryId, categoryName, categoryColor, deviceID } =
+    useGlobalSearchParams();
 
   const [newCategoryName, setNewCategoryName] = useState(categoryName);
-  const [selectedColor, setSelectedColor] = useState("#FFFFFF");
+  const [selectedColor, setSelectedColor] = useState(categoryColor);
 
   const handleColorChange = (colorHsvOrRgb) => {
     const colorHex = tinycolor(colorHsvOrRgb).toHexString();
