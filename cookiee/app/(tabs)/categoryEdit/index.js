@@ -20,10 +20,11 @@ import { putCate } from "../../../api/category/putCate";
 
 const CategoryEdit = () => {
   const router = useRouter();
-  const { categoryId, categoryName, deviceID } = useGlobalSearchParams();
+  const { categoryId, categoryName, categoryColor, deviceID } =
+    useGlobalSearchParams();
 
   const [newCategoryName, setNewCategoryName] = useState(categoryName);
-  const [selectedColor, setSelectedColor] = useState("#FFFFFF");
+  const [selectedColor, setSelectedColor] = useState(categoryColor);
 
   const handleColorChange = (colorHsvOrRgb) => {
     const colorHex = tinycolor(colorHsvOrRgb).toHexString();
@@ -31,20 +32,16 @@ const CategoryEdit = () => {
   };
 
   const handleComplete = async () => {
-    try {
-      const categoryData = {
-        categoryName: newCategoryName,
-        categoryColor: selectedColor,
-      };
+    const categoryData = {
+      categoryName: newCategoryName,
+      categoryColor: selectedColor,
+    };
 
-      const result = await putCate(deviceID, categoryId, categoryData);
-      console.log(result);
+    const result = await putCate(deviceID, categoryId, categoryData);
+    console.log(result);
 
-      router.back();
-      Alert.alert(result.message);
-    } catch (error) {
-      Alert.alert(result.message);
-    }
+    router.back();
+    Alert.alert(result.message);
   };
 
   return (

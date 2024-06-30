@@ -11,11 +11,8 @@ export const postCate = async (deviceID, categoryData) => {
       }
     );
 
-    if (response.status !== 200) {
-      throw new Error("Network response was not ok");
-    }
-
-    return response.data.result;
+    const result = await response.json();
+    return result;
   } catch (error) {
     return null;
   }

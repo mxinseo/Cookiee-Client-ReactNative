@@ -31,20 +31,15 @@ const CategoryAdd = () => {
   };
 
   const handleComplete = async () => {
-    try {
-      const categoryData = {
-        categoryName: categoryName,
-        categoryColor: selectedColor,
-      };
+    const categoryData = {
+      categoryName: categoryName,
+      categoryColor: selectedColor,
+    };
 
-      const result = await postCate(deviceID, categoryData);
-      console.log(result);
+    const result = await postCate(deviceID, categoryData);
 
-      router.back();
-      Alert.alert(result.message);
-    } catch (error) {
-      Alert.alert(result.message);
-    }
+    router.back();
+    Alert.alert(result.message);
   };
 
   return (

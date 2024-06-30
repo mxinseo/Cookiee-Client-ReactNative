@@ -35,19 +35,6 @@ const sideBarIndex = () => {
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
       </View>
-      <View style={S.profileContainer}>
-        {userData?.profileImage && (
-          <Image
-            source={{ uri: userData.profileImage }}
-            style={S.profileImage}
-          />
-        )}
-        <View style={S.textContainer}>
-          {/* <Text style={S.profileText}>Email: {userData?.email}</Text> */}
-          <Text style={S.nicknameText}>{userData?.nickname}</Text>
-          <Text style={S.selfDescriptionText}>{userData?.selfDescription}</Text>
-        </View>
-      </View>
 
       <View style={S.line}></View>
       <TouchableOpacity
@@ -81,21 +68,6 @@ const sideBarIndex = () => {
       </TouchableOpacity>
 
       <View style={S.line}></View>
-
-      {/* <TouchableOpacity
-        style={S.buttonStyle}
-        onPress={() =>
-          router.push({
-            pathname: "myPage",
-            params: {
-              deviceID: deviceID,
-            },
-          })
-        }
-      >
-        <Text style={S.textStyle}>마이페이지</Text>
-      </TouchableOpacity> */}
-      {/* <View style={S.line}></View> */}
     </SafeAreaView>
   );
 };
@@ -141,7 +113,7 @@ const S = StyleSheet.create({
     marginVertical: 8,
   },
   titleHeader: {
-    marginVertical: 20,
+    marginVertical: 30,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

@@ -106,6 +106,7 @@ const CategoryFix = () => {
                         params: {
                           categoryId: category.categoryId,
                           categoryName: category.categoryName,
+                          categoryColor: category.categoryColor,
                           deviceID: deviceID,
                         },
                       });

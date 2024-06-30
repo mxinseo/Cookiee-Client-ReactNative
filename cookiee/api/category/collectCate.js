@@ -13,6 +13,8 @@ export const collectCate = async (deviceID, categoryId) => {
     }
 
     const data = await response.json();
+
+    console.log(data);
     return data.result;
   } catch (error) {
     console.error("Error updating category data:", error);
