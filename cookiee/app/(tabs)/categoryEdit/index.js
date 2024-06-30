@@ -19,33 +19,30 @@ const CategoryEdit = () => {
   const router = useRouter();
   const { categoryId, categoryName, deviceID } = useGlobalSearchParams();
 
-  console.log(categoryId + categoryName + deviceID);
-
+  const [newCategoryName, setNewCategoryName] = useState(categoryName);
   const [selectedColor, setSelectedColor] = useState("#FFFFFF");
 
   const handleColorChange = (colorHsvOrRgb) => {
-    const colorHex = tinycolor(colorHsvOrRgb).toHexString(); // Convert color to hex format
+    const colorHex = tinycolor(colorHsvOrRgb).toHexString();
     setSelectedColor(colorHex);
   };
 
   const handleComplete = async () => {
     try {
       const categoryData = {
-        categoryName: categoryName,
+        categoryName: newCategoryName,
         categoryColor: selectedColor,
       };
 
       const result = await putCate(deviceID, categoryId, categoryData);
 
       if (result.isSuccess) {
-        console.log("Category added successfully:", result);
         router.back();
       } else {
-        console.log("Failed to add category");
         Alert.alert("Error", "이미 존재하는 이름 또는 색상입니다.");
       }
     } catch (error) {
-      console.error("Error adding category:", error);
+      Alert.alert("Error", "다시 한 번 시도해 주세요.");
     }
   };
 
@@ -74,7 +71,7 @@ const CategoryEdit = () => {
             placeholder="카테고리를 입력하세요"
             placeholderTextColor="grey"
             value={categoryName}
-            onChangeText={(text) => setCategoryName(text)}
+            onChangeText={(text) => setNewCategoryName(text)}
           />
           <TouchableOpacity
             style={styles.completeButton}
