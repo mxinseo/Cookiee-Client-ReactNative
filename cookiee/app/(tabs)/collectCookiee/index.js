@@ -12,7 +12,7 @@ const collectCookiee = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    let completed = false; // 첫 번째 1회 실행을 위한 flag
+    let completed = false;
 
     async function get() {
       try {
@@ -30,14 +30,7 @@ const collectCookiee = () => {
     return () => {
       completed = true;
     };
-  }, [deviceID]); // deviceID가 변경될 때 마다 실행
-
-  // const handlePressCate = (categoryName) => {
-  //   router.push({
-  //     pathname: `showCookiee/${categoryName}`,
-  //     params: { categoryId: category.categoryId },
-  //   });
-  // };
+  }, [deviceID]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,6 +52,7 @@ const collectCookiee = () => {
                     pathname: `showCookiee/${category.categoryName}`,
                     params: {
                       categoryId: category.categoryId,
+                      categoryName: category.categoryName,
                       deviceID: deviceID,
                     },
                   })

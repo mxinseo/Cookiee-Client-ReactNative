@@ -21,43 +21,38 @@ import { collectCate } from "../../../api/category/collectCate";
 const ShowCookiee = () => {
   const route = useRouter();
 
-  const { cate } = useGlobalSearchParams();
-  const { deviceID } = useLocalSearchParams();
+  const { categoryId, categoryName, deviceID } = useLocalSearchParams();
 
   const [eventImages, setEventImages] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
-      if (route.params?.categoryId) {
-        setCategoryId(route.params.categoryId);
+      let isActive = true;
+
+      async function fetchData() {
+        try {
+          if (!categoryId) {
+            console.error("categoryId is not set");
+            return;
+          }
+
+          const result = await collectCate(deviceID, categoryId);
+          console.log(result);
+
+          if (result && result.eventImageList) {
+            setEventImages(result.eventImageList);
+          }
+        } catch (error) {
+          console.error("Error fetching category data:", error);
+        }
       }
-    }, [route.params])
+      fetchData();
+
+      return () => {
+        isActive = false;
+      };
+    }, [deviceID])
   );
-
-  useEffect(() => {
-    if (categoryId !== null) {
-      handleComplete();
-    }
-  }, [categoryId]);
-
-  const handleComplete = async () => {
-    try {
-      if (!categoryId) {
-        console.error("categoryId is not set");
-        return;
-      }
-
-      const result = await collectCate(deviceID, categoryId);
-      console.log(result);
-
-      if (result && result.eventImageList) {
-        setEventImages(result.eventImageList);
-      }
-    } catch (error) {
-      console.error("Error fetching category data:", error);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,7 +60,7 @@ const ShowCookiee = () => {
         <TouchableOpacity style={styles.menuIcon} onPress={() => route.back()}>
           <AntDesign name="arrowleft" size={30} color="#594E4E" />
         </TouchableOpacity>
-        <Text style={styles.title}>{cate}</Text>
+        <Text style={styles.title}>{categoryName}</Text>
       </View>
       <FlatList
         data={eventImages}
