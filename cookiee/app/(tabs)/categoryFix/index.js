@@ -28,12 +28,11 @@ const CategoryFix = () => {
         try {
           const result = await getCate(deviceID);
           if (isActive) {
-            setData(result || []); // Ensure data is an array
+            setData(result || []);
           }
         } catch (error) {
-          console.log(error);
           if (isActive) {
-            setData([]); // Set data to an empty array on error
+            setData([]);
           }
         }
       }
@@ -62,7 +61,6 @@ const CategoryFix = () => {
                 )
               );
             } catch (error) {
-              console.log("카테고리 삭제 중 오류 발생:", error);
             }
           },
         },

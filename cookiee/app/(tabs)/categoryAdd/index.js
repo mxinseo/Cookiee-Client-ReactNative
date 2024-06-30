@@ -68,6 +68,7 @@ const CategoryAdd = () => {
                 sliderSize={20}
                 onColorChange={handleColorChange}
                 thumbSize={20}
+                initialColor="#FFFFFF"
               />
 
               <TextInput
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
   },
-
   completeButton: {
     marginVertical: 10,
     width: "auto",

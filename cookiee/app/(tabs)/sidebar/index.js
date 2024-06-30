@@ -17,8 +17,6 @@ const sideBarIndex = () => {
   const { deviceID } = useLocalSearchParams();
   const [userData, setUserData] = useState(null);
 
-  console.log(deviceID);
-
   const fetchUserData = async () => {
     try {
       const data = await getUser(deviceID);
