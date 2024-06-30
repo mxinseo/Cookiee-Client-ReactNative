@@ -40,9 +40,8 @@ const CategoryEdit = () => {
       const result = await putCate(deviceID, categoryId, categoryData);
       console.log(result);
 
-      if (result.isSuccess) {
-        router.back();
-      }
+      router.back();
+      Alert.alert(result.message);
     } catch (error) {
       Alert.alert(result.message);
     }
