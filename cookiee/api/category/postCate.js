@@ -1,10 +1,14 @@
-import axios from "axios";
-
 export const postCate = async (deviceID, categoryData) => {
   try {
-    const response = await axios.post(
+    const response = await fetch(
       `https://cookiee.site/api/v1/categories/${deviceID}`,
-      categoryData
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categoryData),
+      }
     );
 
     if (response.status !== 200) {
@@ -13,7 +17,6 @@ export const postCate = async (deviceID, categoryData) => {
 
     return response.data.result;
   } catch (error) {
-    console.error("Error updating category data:", error);
     return null;
   }
 };

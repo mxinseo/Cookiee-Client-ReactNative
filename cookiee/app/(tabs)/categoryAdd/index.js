@@ -4,10 +4,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  FlatList,
   TextInput,
-  ScrollView,
+  Alert,
   KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,56 +36,65 @@ const CategoryAdd = () => {
         categoryName: categoryName,
         categoryColor: selectedColor,
       };
-      console.log(deviceID);
 
       const result = await postCate(deviceID, categoryData);
 
       if (result) {
-        console.log("Category added successfully:", result);
         router.back();
       } else {
-        console.log("Failed to add category");
+        Alert.alert("Error", "이미 존재하는 이름 또는 색상입니다.");
       }
     } catch (error) {
-      console.error("Error adding category:", error);
+      Alert.alert("Error", "다시 한 번 시도해 주세요.");
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleHeader}>
-        <TouchableOpacity style={styles.menuIcon} onPress={() => router.back()}>
-          <AntDesign name="arrowleft" size={25} color="#594E4E" />
-        </TouchableOpacity>
-        <Text style={styles.title}>🍪 카테고리 추가</Text>
-      </View>
-
-      <View style={styles.centeredContainer}>
-        <View style={styles.editContainer}>
-          <View style={styles.selectedColor}>
-            <ColorPicker
-              color={selectedColor}
-              sliderSize={15}
-              onColorChange={handleColorChange}
-            />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={50}
+          behavior={"padding"}
+          style={{ flex: 1 }}
+        >
+          <View style={styles.titleHeader}>
+            <TouchableOpacity
+              style={styles.menuIcon}
+              onPress={() => router.back()}
+            >
+              <AntDesign name="arrowleft" size={25} color="#594E4E" />
+            </TouchableOpacity>
+            <Text style={styles.title}>🍪 카테고리 추가</Text>
           </View>
-          <TextInput
-            id="categoryName"
-            autoCorrect={false}
-            style={styles.textInput}
-            placeholder="카테고리를 입력하세요"
-            placeholderTextColor="grey"
-            value={categoryName}
-            onChangeText={(text) => setCategoryName(text)}
-          />
-          <TouchableOpacity
-            style={styles.completeButton}
-            onPress={handleComplete}
-          >
-            <Text style={styles.buttonStyle}>완료</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+
+          <View style={styles.centeredContainer}>
+            <View style={styles.editContainer}>
+              <View style={styles.selectedColor}>
+                <ColorPicker
+                  color={selectedColor}
+                  sliderSize={15}
+                  onColorChange={handleColorChange}
+                />
+              </View>
+              <TextInput
+                id="categoryName"
+                autoCorrect={false}
+                style={styles.textInput}
+                placeholder="카테고리를 입력하세요"
+                placeholderTextColor="grey"
+                value={categoryName}
+                onChangeText={(text) => setCategoryName(text)}
+              />
+              <TouchableOpacity
+                style={styles.completeButton}
+                onPress={handleComplete}
+              >
+                <Text style={styles.buttonStyle}>완료</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
@@ -146,15 +156,17 @@ const styles = StyleSheet.create({
 
   completeButton: {
     marginVertical: 10,
-    width: 60,
-    height: 30,
+    width: "auto",
+    height: "auto",
     backgroundColor: "#FFF6F1E4",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   buttonStyle: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });
 
