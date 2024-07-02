@@ -1,5 +1,4 @@
 import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
 import { useRouter } from "expo-router";
 
 import DeviceInfo from "react-native-device-info";
@@ -8,11 +7,9 @@ import axios from "axios";
 
 export default function DeviceRegistration() {
   const router = useRouter();
-  const [deviceID, setDeviceID] = useState(String);
 
   const getDeviceUUID = async () => {
     const uniqueID = await DeviceInfo.getUniqueId();
-    setDeviceID(uniqueID);
     registerDevice(uniqueID);
   };
 
@@ -29,22 +26,9 @@ export default function DeviceRegistration() {
         },
       });
     } catch (error) {
-      console.error("Error postUser data:", error);
       return null;
     }
   };
-
-  // useEffect(() => {
-  //   if (deviceID) {
-  //     console.log("deviceID : " + deviceID);
-  //     router.push({
-  //       pathname: "CalendarHome",
-  //       params: {
-  //         deviceID: deviceID,
-  //       },
-  //     });
-  //   }
-  // }, [deviceID]);
 
   return (
     <View style={styles.container}>

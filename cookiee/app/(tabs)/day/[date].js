@@ -40,16 +40,12 @@ const BottomModalContnet = () => {
     var status = false;
     try {
       if (hasThumb === false) {
-        console.log("등록 api");
         status = await createThumb(deviceID, selectedDate, imageData);
-        console.log(status);
       } else {
-        console.log("수정 api", thumbnailId);
         status = await updateThumb(deviceID, thumbnailId, imageData);
-        console.log(status);
       }
     } catch (error) {
-      console.error("Error in onImageSelected:", error);
+      status = false;
     }
     if (status == true) {
       setSelectedThumbnailUrl(imageData.uri);
@@ -57,7 +53,6 @@ const BottomModalContnet = () => {
   };
 
   const deleteThumbnail = () => {
-    console.log("삭제 api");
     Alert.alert(
       "표지 사진 삭제하기",
       "정말로 삭제하시겠습니까?",
@@ -99,9 +94,7 @@ const BottomModalContnet = () => {
       if (!result.canceled) {
         onImageSelected(result.assets[0]);
       }
-    } catch (error) {
-      console.error("Error while picking image:", error);
-    }
+    } catch (error) {}
   };
 
   const alertPickThumb = () =>
@@ -149,12 +142,8 @@ const BottomModalContnet = () => {
           setSelectedThumbnailUrl(null);
           setHasThumb(false);
         }
-      } else {
-        console.log("getThumb returned undefined or null result");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async function handelGetEventList() {
@@ -169,9 +158,7 @@ const BottomModalContnet = () => {
       if (eventList != null) {
         setEventList(eventList);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   useFocusEffect(
@@ -225,7 +212,6 @@ const BottomModalContnet = () => {
         </LinearGradient>
       </View>
 
-      {/* 이벤트 리스트가 들어가는 위치 */}
       <View style={styles.scrollView}>
         <ScrollView
           contentContainerStyle={{

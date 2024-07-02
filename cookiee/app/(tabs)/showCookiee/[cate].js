@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -9,11 +9,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  useRouter,
-  useGlobalSearchParams,
-  useLocalSearchParams,
-} from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { collectCate } from "../../../api/category/collectCate";
@@ -32,19 +28,15 @@ const ShowCookiee = () => {
       async function fetchData() {
         try {
           if (!categoryId) {
-            console.error("categoryId is not set");
             return;
           }
 
           const result = await collectCate(deviceID, categoryId);
-          console.log(result);
 
           if (result && result.eventImageList) {
             setEventImages(result.eventImageList);
           }
-        } catch (error) {
-          console.error("Error fetching category data:", error);
-        }
+        } catch (error) {}
       }
       fetchData();
 

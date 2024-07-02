@@ -9,7 +9,6 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import "react-native-get-random-values";
@@ -23,7 +22,7 @@ import {
 
 import { getThumb } from "../../api/thumbnail/getThumb";
 
-export default function CalendarHome({ navigation }) {
+export default function CalendarHome() {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
 
@@ -120,7 +119,6 @@ function Header(props) {
   );
 }
 
-//Year,Monty,date
 function Body(props) {
   const [totalDays, setTotalDays] = useState({});
   const [pressedDate, setPressedDate] = useState({
@@ -136,8 +134,8 @@ function Body(props) {
   }, [year, month, date]);
 
   const getTotalDays = (year, month) => {
-    const previousMonthLastDate = new Date(year, month - 1, 0).getDate(); //이 전달의 마지막 날짜 체크
-    const previousMonthLastDay = new Date(year, month - 1, 0).getDay(); //이 전 달의 마지막 날짜의 요일
+    const previousMonthLastDate = new Date(year, month - 1, 0).getDate();
+    const previousMonthLastDay = new Date(year, month - 1, 0).getDay();
     const currentMonthLastDate = new Date(year, month, 0).getDate();
     const currentMonthLastDay = new Date(year, month, 0).getDay();
 
@@ -168,13 +166,10 @@ function Body(props) {
     });
   };
 
-  const [selectedDate, setSelectedDate] = useState(null);
-
   useEffect(() => {}, [pressedDate]);
 
   const handlePressDay = (date) => {
     setPressedDate(date);
-    setSelectedDate(date);
 
     if (date.state === "prev" || date.state === "next") {
       props.moveToSpecificYearAndMonth(date.year, date.month);
@@ -199,12 +194,11 @@ function Body(props) {
     }
   };
 
-  // 썸네일 불러오기
   const [thumbnailUris, setThumbnailUris] = useState();
 
   useFocusEffect(
     useCallback(() => {
-      let completed = false; // 첫 번째 1회 실행을 위한 flag
+      let completed = false;
 
       async function get() {
         try {
@@ -218,7 +212,7 @@ function Body(props) {
         }
       }
 
-      get(); // Call the function immediately
+      get();
 
       return () => {
         completed = true;

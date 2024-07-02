@@ -34,9 +34,7 @@ const EventDetailIndex = () => {
         setEventData(event);
         setEventImgData(event.eventImageUrlList);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   useFocusEffect(
@@ -48,8 +46,6 @@ const EventDetailIndex = () => {
   const width = Dimensions.get("window").width;
 
   const hadleDeleteEvent = () => {
-    console.log("이벤트 삭제 api");
-    console.log(deviceID, eventid);
     Alert.alert(
       "이벤트 삭제하기",
       "정말로 삭제하시겠습니까?",
@@ -58,7 +54,7 @@ const EventDetailIndex = () => {
           text: "삭제",
           onPress: async () => {
             const status = await deleteEvent(deviceID, eventid);
-            console.log(status);
+            Alert.alert(status);
             router.back();
           },
         },
