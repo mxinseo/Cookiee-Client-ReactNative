@@ -10,9 +10,8 @@ export const getThumb = async (deviceID) => {
       throw new Error("Network response was not ok");
     }
 
-    return response.data.result; // 업데이트된 데이터 반환 또는 처리
+    return response.data.result;
   } catch (error) {
-    console.error("Error get thumbnail data:", error);
-    return null; // 에러 처리 또는 다른 방식으로 처리
+    return null;
   }
 };

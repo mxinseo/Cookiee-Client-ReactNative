@@ -21,9 +21,7 @@ const sideBarIndex = () => {
     try {
       const data = await getUser(deviceID);
       setUserData(data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
+    } catch (error) {}
   };
 
   useFocusEffect(

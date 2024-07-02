@@ -1,5 +1,4 @@
 export const collectCate = async (deviceID, categoryId) => {
-  console.log(deviceID + categoryId);
   try {
     const response = await fetch(
       `https://cookiee.site/api/v1/categories/collection/${deviceID}/${categoryId}`,
@@ -13,11 +12,8 @@ export const collectCate = async (deviceID, categoryId) => {
     }
 
     const data = await response.json();
-
-    console.log(data);
     return data.result;
   } catch (error) {
-    console.error("Error updating category data:", error);
     return null;
   }
 };

@@ -2,7 +2,7 @@
   "expo": {
     "name": "cookiee",
     "slug": "cookiee",
-    "version": "1.0.0",
+    "version": "9.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/cookiee_icon_nameonly.png",
     "scheme": "myapp",

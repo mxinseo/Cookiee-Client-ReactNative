@@ -18,7 +18,7 @@ import deleteCate from "../../../api/category/deleteCate";
 const CategoryFix = () => {
   const router = useRouter();
   const { deviceID } = useLocalSearchParams();
-  const [data, setData] = useState([]); // Initialize as an empty array
+  const [data, setData] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -60,8 +60,7 @@ const CategoryFix = () => {
                   (category) => category.categoryId !== categoryId
                 )
               );
-            } catch (error) {
-            }
+            } catch (error) {}
           },
         },
         {

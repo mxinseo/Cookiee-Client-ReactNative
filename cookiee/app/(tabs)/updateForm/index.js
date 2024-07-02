@@ -53,7 +53,6 @@ const UpdateEventFormScreen = () => {
                   (item) => item.value === presentCate.value
                 );
                 if (!exists) {
-                  console.log(presentCate);
                   presentCates.push(presentCate);
                 }
               }
@@ -61,11 +60,8 @@ const UpdateEventFormScreen = () => {
               setItems([...presentCates, ...items]);
             }
           } else {
-            console.error("getCate returned undefined or null result");
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
 
       get();
@@ -79,7 +75,6 @@ const UpdateEventFormScreen = () => {
     endMin: 0,
   });
 
-  /* 이미지 업로드 구현 */
   const formData = new FormData();
   const [imageUrl, setImageUrl] = useState([]);
   const [imageDataArray, setImageDataArray] = useState([]);
@@ -87,7 +82,6 @@ const UpdateEventFormScreen = () => {
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const uploadImage = async () => {
-    // 권한 확인 코드: 권한 없으면 물어보고, 승인하지 않으면 함수 종료
     if (!status?.granted) {
       const permission = await requestPermission();
       if (!permission.granted) {
@@ -103,7 +97,6 @@ const UpdateEventFormScreen = () => {
         allowsMultipleSelection: true,
       });
 
-      // 이미지 업로드 취소한 경우
       if (result.canceled) {
         return null;
       }
@@ -128,9 +121,7 @@ const UpdateEventFormScreen = () => {
           ...uploadedImageData,
         ]);
       }
-    } catch (error) {
-      console.error("Error while picking image:", error);
-    }
+    } catch (error) {}
   };
 
   const [newEvent, setNewEvent] = useState({
@@ -154,7 +145,6 @@ const UpdateEventFormScreen = () => {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // FormData
     formData.append("eventWhat", newEvent.what);
     formData.append("eventWhere", newEvent.place);
     formData.append("withWho", newEvent.people);
@@ -184,15 +174,10 @@ const UpdateEventFormScreen = () => {
       },
     })
       .then((res) => {
-        console.log("이벤트 수정 통신 성공. LOG의 'ok'가 true인지 확인하세요.");
-        console.log(JSON.stringify(res));
         setIsSubmitting(false);
         router.back();
       })
-      .catch((err) => {
-        console.log("이벤트 수정 통신 실패");
-        console.log(JSON.stringify(err.response));
-      });
+      .catch((err) => {});
   };
 
   if (isSubmitting == false) {
@@ -223,7 +208,6 @@ const UpdateEventFormScreen = () => {
               }}
             >
               {imageUrl && imageUrl.length === 0 ? (
-                // 이미지가 업로드되지 않았을 때
                 <View
                   style={{
                     flex: 1,
@@ -247,7 +231,6 @@ const UpdateEventFormScreen = () => {
                   </TouchableOpacity>
                 </View>
               ) : (
-                // 이미지가 업로드된 후
                 <Carousel
                   loop
                   mode="parallax"
@@ -386,7 +369,6 @@ const UpdateEventFormScreen = () => {
                     value={selected}
                     onChange={(item) => {
                       setSelected(item);
-                      console.log(item);
                     }}
                     renderSelectedItem={(item, unSelect) => (
                       <TouchableOpacity
@@ -500,7 +482,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
 
-  //이미지 추가 버튼
   imageInputBtn: {
     display: "flex",
     alignSelf: "center",
@@ -513,7 +494,6 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
 
-  // 드롭다운
   dropdownContainer: {
     width: "70%",
     height: 25,
@@ -553,7 +533,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-  //
   timeInputBox: {
     borderRadius: 5,
     width: "15%",
