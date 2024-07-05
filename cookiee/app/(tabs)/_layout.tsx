@@ -83,25 +83,6 @@ export default function TabLayout() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="myPage"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="updateForm"
-        options={{
-          headerShown: false,
-          presentation: "modal",
-        }}
-      />
-      <Stack.Screen
-        name="myPageEdit"
-        options={{
-          headerShown: false,
-        }}
-      />
     </Stack>
   );
 }
