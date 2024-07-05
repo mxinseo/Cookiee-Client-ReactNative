@@ -132,23 +132,6 @@ const EventDetailIndex = () => {
             >
               <TouchableOpacity
                 style={styles.iconContainer}
-                onPress={() => {
-                  router.push({
-                    pathname: "updateForm",
-                    params: {
-                      year: eventData.EventYear,
-                      month: eventData.EventMonth,
-                      date: eventData.EventDate,
-                      deviceID: deviceID,
-                      eventId: eventid,
-                    },
-                  });
-                }}
-              >
-                <EvilIcons name="pencil" size={37} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.iconContainer}
                 onPress={hadleDeleteEvent}
               >
                 <EvilIcons name="trash" size={35} color="black" />
