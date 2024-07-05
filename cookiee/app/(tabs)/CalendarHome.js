@@ -207,9 +207,7 @@ function Body(props) {
           if (!completed && result != null) {
             setThumbnailUris(result);
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
 
       get();
