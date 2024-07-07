@@ -54,7 +54,7 @@ const EventDetailIndex = () => {
           text: "삭제",
           onPress: async () => {
             const status = await deleteEvent(deviceID, eventid);
-            Alert.alert(status);
+            Alert.alert("이벤트 삭제하기", status);
             router.back();
           },
         },
