@@ -39,7 +39,7 @@ const CategoryAdd = () => {
     const result = await postCate(deviceID, categoryData);
 
     router.back();
-    Alert.alert(result.message);
+    Alert.alert("Cookiee", result.message);
   };
 
   return (

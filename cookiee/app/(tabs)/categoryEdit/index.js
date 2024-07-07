@@ -40,7 +40,7 @@ const CategoryEdit = () => {
     const result = await putCate(deviceID, categoryId, categoryData);
 
     router.back();
-    Alert.alert(result.message);
+    Alert.alert("Cookiee", result.message);
   };
 
   return (
