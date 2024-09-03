@@ -207,7 +207,7 @@ const AddEventFormScreen = () => {
 
     setIsSubmitting(true);
 
-    fetch(`https://cookiee.site/api/v1/events/${deviceID}`, {
+    fetch(`http://13.125.102.163/events/${deviceID}`, {
       method: "POST",
       body: formData,
     })

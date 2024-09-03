@@ -12,7 +12,7 @@ export const updateThumb = async (deviceID, thumbId, imageData) => {
 
   try {
     const res = await fetch(
-      `https://cookiee.site/api/v1/thumbnails/${deviceID}/${thumbId}`,
+      `http://13.125.102.163/thumbnails/${deviceID}/${thumbId}`,
       {
         method: "PUT",
         body: formData,

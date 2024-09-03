@@ -16,7 +16,7 @@ export default function DeviceRegistration() {
   const registerDevice = async (deviceID: string) => {
     try {
       const response = await axios.post(
-        `https://cookiee.site/api/v1/users/${deviceID}`
+        `http://13.125.102.163/users/${deviceID}`
       );
 
       router.push({
