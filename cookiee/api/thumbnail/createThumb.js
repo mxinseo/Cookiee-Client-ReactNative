@@ -15,7 +15,7 @@ export const createThumb = async (deviceID, selectedDate, asset) => {
 
   try {
     const res = await fetch(
-      `https://cookiee.site/api/v1/thumbnails/${deviceID}`,
+      `http://13.125.102.163/api/v1/thumbnails/${deviceID}`,
       {
         method: "POST",
         body: formData,

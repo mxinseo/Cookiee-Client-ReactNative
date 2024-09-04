@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>2.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -28,7 +28,13 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>myapp</string>
-				<string>com.appscookiee.cookiee</string>
+				<string>ATV75VJ92J</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>exp+cookiee</string>
 			</array>
 		</dict>
 	</array>
@@ -42,8 +48,6 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your camera</string>
@@ -53,6 +57,7 @@
 	<string>Photo Library Access Warning</string>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>

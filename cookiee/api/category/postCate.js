@@ -1,7 +1,7 @@
 export const postCate = async (deviceID, categoryData) => {
   try {
     const response = await fetch(
-      `https://cookiee.site/api/v1/categories/${deviceID}`,
+      `http://13.125.102.163/api/v1/categories/${deviceID}`,
       {
         method: "POST",
         headers: {

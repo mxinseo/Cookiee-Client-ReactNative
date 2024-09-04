@@ -3,7 +3,7 @@ import axios from "axios";
 export const getThumb = async (deviceID) => {
   try {
     const response = await axios.get(
-      `https://cookiee.site/api/v1/thumbnails/${deviceID}`
+      `http://13.125.102.163/api/v1/thumbnails/${deviceID}`
     );
 
     if (response.status !== 200) {

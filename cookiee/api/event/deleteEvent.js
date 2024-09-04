@@ -1,7 +1,7 @@
 export const deleteEvent = async (deviceId, eventId) => {
   try {
     const res = await fetch(
-      `https://cookiee.site/api/v1/events/${deviceId}/${eventId}`,
+      `http://13.125.102.163/api/v1/events/${deviceId}/${eventId}`,
       {
         method: "DELETE",
       }

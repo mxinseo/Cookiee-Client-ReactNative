@@ -166,7 +166,7 @@ const UpdateEventFormScreen = () => {
       formData.append(`categoryIds`, category);
     });
 
-    fetch(`https://cookiee.site/api/v1/events/${deviceID}/${eventId}`, {
+    fetch(`http://13.125.102.163/api/v1/events/${deviceID}/${eventId}`, {
       method: "PUT",
       body: formData,
       headers: {
