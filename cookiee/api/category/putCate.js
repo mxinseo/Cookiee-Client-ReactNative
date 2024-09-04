@@ -1,7 +1,7 @@
 export const putCate = async (deviceID, categoryId, categoryData) => {
   try {
     const response = await fetch(
-      `http://13.125.102.163/categories/${deviceID}/${categoryId}`,
+      `http://13.125.102.163/api/v1/categories/${deviceID}/${categoryId}`,
       {
         method: "PUT",
         headers: {

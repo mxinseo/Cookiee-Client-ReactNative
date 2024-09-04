@@ -3,7 +3,7 @@ import axios from "axios";
 export const getEventById = async (deviceID, eventId) => {
   try {
     const response = await axios.get(
-      `http://13.125.102.163/events/${deviceID}/${eventId}`
+      `http://13.125.102.163/api/v1/events/${deviceID}/${eventId}`
     );
 
     if (response.status !== 200) {

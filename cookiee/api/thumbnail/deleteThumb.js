@@ -1,7 +1,7 @@
 export const deleteThumb = async (deviceID, thumbnailId) => {
   try {
     const res = await fetch(
-      `http://13.125.102.163/thumbnails/${deviceID}/${thumbnailId}`,
+      `http://13.125.102.163/api/v1/thumbnails/${deviceID}/${thumbnailId}`,
       {
         method: "DELETE",
       }

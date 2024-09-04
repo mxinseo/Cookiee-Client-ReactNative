@@ -14,10 +14,13 @@ export const createThumb = async (deviceID, selectedDate, asset) => {
   formData.append("eventDate", selectedDate.date);
 
   try {
-    const res = await fetch(`http://13.125.102.163/thumbnails/${deviceID}`, {
-      method: "POST",
-      body: formData,
-    });
+    const res = await fetch(
+      `http://13.125.102.163/api/v1/thumbnails/${deviceID}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (res.status == 200) {
       return res.ok;

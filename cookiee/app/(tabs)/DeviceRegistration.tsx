@@ -10,13 +10,14 @@ export default function DeviceRegistration() {
 
   const getDeviceUUID = async () => {
     const uniqueID = await DeviceInfo.getUniqueId();
+
     registerDevice(uniqueID);
   };
 
   const registerDevice = async (deviceID: string) => {
     try {
       const response = await axios.post(
-        `http://13.125.102.163/users/${deviceID}`
+        `http://13.125.102.163/api/v1/users/${deviceID}`
       );
 
       router.push({
